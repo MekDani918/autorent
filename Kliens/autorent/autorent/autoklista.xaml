@@ -1,0 +1,28 @@
+﻿<Window x:Class="autorent.autoklista"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:autorent"
+        mc:Ignorable="d"
+        Title="autoklista" Height="450" Width="800">
+    <Grid>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="23,148,159,110"/>
+        <ListBox Margin="27,71,564,326">
+            <ListBoxItem Content="-" Height="91"/>
+
+        </ListBox>
+        <Menu Margin="0,0,0,408">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            <MenuItem Header="Autók" Height="25"/>
+            <MenuItem Header="Kölcsönzéseim"/>
+            <MenuItem HorizontalContentAlignment="Right" HorizontalAlignment="Right" Header="Kijelentkezés" Click="MenuItem_Click" Width="93"/>
+        </Menu>
+        <Label Content="Kategóriák:" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="27,40,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,18 @@
+﻿<Window x:Class="autorent.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:autorent"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="AutoRent Alkalmazás" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Margin="0,36,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="textbox_jelszo" TextWrapping="Wrap" Text="Jelszó" Margin="0,180,0,210" FontSize="14" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="186" RenderTransformOrigin="0.5,0.5" TextChanged="textbox_jelszo_TextChanged"/>
+        <Label Content="Felhasználónév:" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Margin="0,78,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
+        <Label Content="Jelszó:" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="302,144,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
+        <Button x:Name="gomb_bejelentkezes" Content="Bejelentkezés" FontWeight="Bold" Margin="308,241,308,140" FontSize="14" Click="gomb_bejelentkezes_Click"/>
+        <TextBox x:Name="textbox_felhasz" TextWrapping="Wrap" Text="Felhasználónév" Margin="0,114,0,274" FontSize="14" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="184"/>
+    </Grid>
+
+</Window>
