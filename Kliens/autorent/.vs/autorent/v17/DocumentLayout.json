@@ -1,0 +1,154 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|c:\\users\\honti\\desktop\\kliens\\autorent\\autorent\\autoklista.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|solutionrelative:autorent\\autoklista.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|c:\\users\\honti\\desktop\\kliens\\autorent\\autorent\\autoklista.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|solutionrelative:autorent\\autoklista.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|c:\\users\\honti\\desktop\\kliens\\autorent\\autorent\\responseautok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|solutionrelative:autorent\\responseautok.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|c:\\users\\honti\\desktop\\kliens\\autorent\\autorent\\responsekategoriak.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|solutionrelative:autorent\\responsekategoriak.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|c:\\users\\honti\\desktop\\kliens\\autorent\\autorent\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|solutionrelative:autorent\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|c:\\users\\honti\\desktop\\kliens\\autorent\\autorent\\userpost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|solutionrelative:autorent\\userpost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|c:\\users\\honti\\desktop\\kliens\\autorent\\autorent\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|solutionrelative:autorent\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|c:\\users\\honti\\desktop\\kliens\\autorent\\autorent\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E0F112-8CFB-420F-ADC9-7B34FCBD19AA}|autorent\\autorent.csproj|solutionrelative:autorent\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "responsekategoriak.cs",
+              "DocumentMoniker": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\responsekategoriak.cs",
+              "RelativeDocumentMoniker": "autorent\\responsekategoriak.cs",
+              "ToolTip": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\responsekategoriak.cs",
+              "RelativeToolTip": "autorent\\responsekategoriak.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-31T17:54:06.097Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "responseautok.cs",
+              "DocumentMoniker": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\responseautok.cs",
+              "RelativeDocumentMoniker": "autorent\\responseautok.cs",
+              "ToolTip": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\responseautok.cs",
+              "RelativeToolTip": "autorent\\responseautok.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-31T17:13:31.525Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "autoklista.xaml",
+              "DocumentMoniker": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\autoklista.xaml",
+              "RelativeDocumentMoniker": "autorent\\autoklista.xaml",
+              "ToolTip": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\autoklista.xaml",
+              "RelativeToolTip": "autorent\\autoklista.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-03-31T17:06:14.376Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "autorent\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\MainWindow.xaml",
+              "RelativeToolTip": "autorent\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-03-31T16:08:52.125Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "autoklista.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\autoklista.xaml.cs",
+              "RelativeDocumentMoniker": "autorent\\autoklista.xaml.cs",
+              "ToolTip": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\autoklista.xaml.cs",
+              "RelativeToolTip": "autorent\\autoklista.xaml.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAADwvzQAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-31T16:04:53.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "userresponse.cs",
+              "DocumentMoniker": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\userresponse.cs",
+              "RelativeDocumentMoniker": "autorent\\userresponse.cs",
+              "ToolTip": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\userresponse.cs",
+              "RelativeToolTip": "autorent\\userresponse.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-31T16:37:23.096Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "userpost.cs",
+              "DocumentMoniker": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\userpost.cs",
+              "RelativeDocumentMoniker": "autorent\\userpost.cs",
+              "ToolTip": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\userpost.cs",
+              "RelativeToolTip": "autorent\\userpost.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-31T16:07:01.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "autorent\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\MainWindow.xaml.cs",
+              "RelativeToolTip": "autorent\\MainWindow.xaml.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAgwCEAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-31T15:47:04.174Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

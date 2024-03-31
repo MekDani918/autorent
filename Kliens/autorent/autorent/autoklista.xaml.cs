@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,9 +29,34 @@ namespace autorent
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainWindow bejelenkezes=new MainWindow();
+            bejelenkezes.Show();
+            MainWindow.felhasznalotoken = "";
             this.Close();
+            
+        }
+
+        private void window_autoklistadefault_load_Loaded(object sender, RoutedEventArgs e)
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri(MainWindow.apiurl);
+            var valasz = client.GetAsync("/categories").Result;
+
+            if (valasz.IsSuccessStatusCode)
+            {
+                var valaszadat=valasz.Content.ReadAsStringAsync().Result;
+                var responseadat = JsonSerializer.Deserialize<List<responsekategoriak>>(valaszadat);
+                foreach (var item in responseadat)
+                {
+                    listbox_kategoria.Items.Add(item.name);
+                }
+                
+            }
         }
     }
 }
