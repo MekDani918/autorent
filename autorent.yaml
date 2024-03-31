@@ -56,6 +56,30 @@ paths:
                   message:
                     type: string
                     example: 'Invalid username or password'
+  /categories:
+    get:
+      tags:
+        - cars
+      summary: Returns list of available categories
+      description: ''
+      operationId: getCategories
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
   /cars:
     get:
       tags:
@@ -207,6 +231,15 @@ components:
         token:
           type: string
           example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Hatchback
     Car:
       type: object
       properties:
