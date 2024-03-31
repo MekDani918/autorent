@@ -23,6 +23,22 @@ function getUserByUsername(username){
 
     return users.find((x)=>x.username == username);
 }
+function getCategories(){
+    return [
+        {
+            id: 1,
+            name: 'Hatchback'
+        },
+        {
+            id: 2,
+            name: 'Coupe'
+        },
+        {
+            id: 3,
+            name: 'SUV'
+        }
+    ];
+}
 function getCars(category = null){
     let cars = [
         {
@@ -99,8 +115,30 @@ function getCarById(carId){
     ];
     return cars.find((x)=>x.id==carId);
 }
+function inserRental(carId, fromTimestamp, toTimestamp){
+    return 2;
+}
+function getRentalsByUserId(userId){
+    return [
+        {
+            carId: 1,
+            fromDate: "2024-03-21",
+            toDate: "2024-03-21",
+            rentalTimestamp: "1711042568"
+        },
+        {
+            carId: 3,
+            fromDate: "2024-06-30",
+            toDate: "2024-07-02",
+            rentalTimestamp: "1711042568"
+        }
+    ];
+}
 
 
 module.exports.getUserByUsername = getUserByUsername;
+module.exports.getCategories = getCategories;
 module.exports.getCars = getCars;
 module.exports.getCarById = getCarById;
+module.exports.inserRental = inserRental;
+module.exports.getRentalsByUserId = getRentalsByUserId;

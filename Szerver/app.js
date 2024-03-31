@@ -3,7 +3,9 @@ const app = express();
 const bodyParser = require('body-parser');
 
 const loginRouteHandler = require('./inc/routes/login');
+const categoriesRouteHandler = require('./inc/routes/categories');
 const carsRouteHandler = require('./inc/routes/cars');
+const rentalsRouteHandler = require('./inc/routes/rentals');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -20,7 +22,9 @@ app.use((req, res, next) => {
 
 
 app.use('/login', loginRouteHandler);
+app.use('/categories', categoriesRouteHandler);
 app.use('/cars', carsRouteHandler);
+app.use('/rentals', rentalsRouteHandler);
 
 
 app.use((req, res, next) => {
