@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\autorent.csproj",
+      "projectUniqueName": "C:\\Users\\honti\\Desktop\\proj\\autorent\\Kliens\\autorent\\autorent\\autorent.csproj",
       "projectName": "autorent",
-      "projectPath": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\autorent.csproj",
+      "projectPath": "C:\\Users\\honti\\Desktop\\proj\\autorent\\Kliens\\autorent\\autorent\\autorent.csproj",
       "packagesPath": "C:\\Users\\honti\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\honti\\Desktop\\Kliens\\autorent\\autorent\\obj\\",
+      "outputPath": "C:\\Users\\honti\\Desktop\\proj\\autorent\\Kliens\\autorent\\autorent\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

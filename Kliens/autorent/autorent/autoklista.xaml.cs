@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -15,8 +17,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace autorent
 {
+    
     /// <summary>
     /// Interaction logic for autoklista.xaml
     /// </summary>
@@ -45,11 +49,11 @@ namespace autorent
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(MainWindow.apiurl);
-            var valasz = client.GetAsync("/categories").Result;
+            var kategoriavalasz = client.GetAsync("/categories").Result;
 
-            if (valasz.IsSuccessStatusCode)
+            if (kategoriavalasz.IsSuccessStatusCode)
             {
-                var valaszadat=valasz.Content.ReadAsStringAsync().Result;
+                var valaszadat=kategoriavalasz.Content.ReadAsStringAsync().Result;
                 var responseadat = JsonSerializer.Deserialize<List<responsekategoriak>>(valaszadat);
                 foreach (var item in responseadat)
                 {
@@ -57,6 +61,58 @@ namespace autorent
                 }
                 
             }
+            var autolistavalasz = client.GetAsync("/cars").Result;
+            if(autolistavalasz.IsSuccessStatusCode) 
+            {
+                var valaszadat = autolistavalasz.Content.ReadAsStringAsync().Result;
+                var responseadat=JsonSerializer.Deserialize < List<responseautok >> (valaszadat);
+                DataTable dt=UseSystemTextJson(valaszadat);
+                datagrid_autoklista.ItemsSource = dt.DefaultView;
+            }
+        }
+        static DataTable? UseSystemTextJson(string sampleJson)
+        {
+            DataTable? dataTable = new();
+            if (string.IsNullOrWhiteSpace(sampleJson))
+            {
+                return dataTable;
+            }
+
+            JsonElement data = JsonSerializer.Deserialize<JsonElement>(sampleJson);
+            if (data.ValueKind != JsonValueKind.Array)
+            {
+                return dataTable;
+            }
+
+            var dataArray = data.EnumerateArray();
+            JsonElement firstObject = dataArray.First();
+
+            var firstObjectProperties = firstObject.EnumerateObject();
+            foreach (var element in firstObjectProperties)
+            {
+                dataTable.Columns.Add(element.Name);
+            }
+
+            foreach (var obj in dataArray)
+            {
+                var objProperties = obj.EnumerateObject();
+                DataRow newRow = dataTable.NewRow();
+                foreach (var item in objProperties)
+                {
+                    newRow[item.Name] = item.Value;
+                }
+                dataTable.Rows.Add(newRow);
+            }
+
+            return dataTable;
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            autoklista autoklistja = new autoklista();
+            autoklistja.Show();          
+            this.Close();
         }
     }
+    
 }
