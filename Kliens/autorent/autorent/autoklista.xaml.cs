@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data.Common;
 
 
 namespace autorent
@@ -26,6 +27,7 @@ namespace autorent
     /// </summary>
     public partial class autoklista : Window
     {
+        public static DataTable alap;
         public autoklista()
         {
             InitializeComponent();
@@ -66,10 +68,11 @@ namespace autorent
             {
                 var valaszadat = autolistavalasz.Content.ReadAsStringAsync().Result;
                 var responseadat=JsonSerializer.Deserialize < List<responseautok >> (valaszadat);
-                DataTable dt=UseSystemTextJson(valaszadat);
-                datagrid_autoklista.ItemsSource = dt.DefaultView;
+                alap=UseSystemTextJson(valaszadat);
+                datagrid_autoklista.ItemsSource = alap.DefaultView;
             }
         }
+        //Függvény amely visszatér a DataTablelel
         static DataTable? UseSystemTextJson(string sampleJson)
         {
             DataTable? dataTable = new();
@@ -112,6 +115,42 @@ namespace autorent
             autoklista autoklistja = new autoklista();
             autoklistja.Show();          
             this.Close();
+        }
+
+        private void listbox_kategoria_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataTable mostani = alap;       
+            DataTable szurtrekodok=new DataTable();
+            szurtrekodok.Columns.Add("id", typeof(System.Int32));
+            szurtrekodok.Columns.Add("brand", typeof(System.String));
+            szurtrekodok.Columns.Add("model", typeof(System.String));
+            szurtrekodok.Columns.Add("category", typeof(System.String));
+            szurtrekodok.Columns.Add("dailyPrice", typeof(System.Int32));        
+            if (listbox_kategoria.SelectedIndex == 0)
+            {
+                datagrid_autoklista.ItemsSource = alap.DefaultView;
+                return;
+            }
+            //Debug.WriteLine(listbox_kategoria.SelectedIndex);
+            foreach (DataRow item in mostani.Rows) 
+            {
+
+                Debug.WriteLine(item["category"].ToString());
+                //Debug.WriteLine(listbox_kategoria.SelectedValue);
+                if (item["category"].ToString() == listbox_kategoria.SelectedValue.ToString())
+                {
+                    DataRow row = szurtrekodok.NewRow();
+                    row["id"] = item["id"];
+                    row["brand"] = item["brand"];
+                    row["model"] = item["model"];
+                    row["category"] = item["category"];
+                    row["dailyPrice"]=item["dailyPrice"];
+                    szurtrekodok.Rows.Add(row);
+
+                    // szurtrekodok.ImportRow(item);
+                }
+            }                                         
+            datagrid_autoklista.ItemsSource=szurtrekodok.DefaultView;
         }
     }
     

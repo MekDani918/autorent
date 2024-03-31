@@ -12,21 +12,21 @@
                 <DataGridTextColumn Binding="{Binding id}" Header="id" MinWidth="20">
                     
                 </DataGridTextColumn>
-                <DataGridTextColumn  Binding="{Binding brand}" Header="Márka" MinWidth="40">
+                <DataGridTextColumn  Binding="{Binding brand}" Header="brand" MinWidth="40">
                     
                 </DataGridTextColumn>
-                <DataGridTextColumn  Binding="{Binding model}" Header="Típus" MinWidth="40">
+                <DataGridTextColumn  Binding="{Binding model}" Header="model" MinWidth="40">
 
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding category}" Header="Kategória" MinWidth="50">
+                <DataGridTextColumn Binding="{Binding category}" Header="category" MinWidth="50">
 
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding dailyPrice}" Header="Napi összeg" MinWidth="25">
+                <DataGridTextColumn Binding="{Binding dailyPrice}" Header="dailyPrice" MinWidth="25">
 
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <ListBox x:Name="listbox_kategoria" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,71,0,0" Height="48" Width="135">
+        <ListBox x:Name="listbox_kategoria" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,71,0,0" Height="48" Width="135" SelectionChanged="listbox_kategoria_SelectionChanged">
             <ListBoxItem Content="-"/>
 
         </ListBox>
