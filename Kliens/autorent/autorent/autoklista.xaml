@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="autoklista" Height="450" Width="800" Loaded="window_autoklistadefault_load_Loaded">
     <Grid>
-        <DataGrid x:Name="datagrid_autoklista" AutoGenerateColumns="False"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,175,0,0" Height="188" Width="672" SelectionChanged="datagrid_autoklista_SelectionChanged">
+        <DataGrid x:Name="datagrid_autoklista" AutoGenerateColumns="False" CanUserAddRows="False"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,175,0,0" Height="188" Width="672" SelectionChanged="datagrid_autoklista_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id}" Header="id" MinWidth="20">
 

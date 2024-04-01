@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="kolcsonzeseim" Height="450" Width="800">
     <Grid>
-        <DataGrid x:Name="datagrid_kolcsonzeseimlista" AutoGenerateColumns="False"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,175,0,0" Height="188" Width="672" Loaded="datagrid_kolcsonzeseimlista_Loaded">
+        <DataGrid x:Name="datagrid_kolcsonzeseimlista" AutoGenerateColumns="False" CanUserAddRows="False" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,175,0,0" Height="188" Width="672" Loaded="datagrid_kolcsonzeseimlista_Loaded">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding carId}" Header="carId" MinWidth="30"/>
                 <DataGridTextColumn  Binding="{Binding fromDate}" Header="fromDate" MinWidth="60"/>
