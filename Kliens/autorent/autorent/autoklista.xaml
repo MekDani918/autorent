@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="autoklista" Height="450" Width="800" Loaded="window_autoklistadefault_load_Loaded">
     <Grid>
-        <DataGrid x:Name="datagrid_autoklista" AutoGenerateColumns="False"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="27,169,0,0" Height="188" Width="672">
+        <DataGrid x:Name="datagrid_autoklista" AutoGenerateColumns="False"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,175,0,0" Height="188" Width="672" SelectionChanged="datagrid_autoklista_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id}" Header="id" MinWidth="20">
-                    
+
                 </DataGridTextColumn>
                 <DataGridTextColumn  Binding="{Binding brand}" Header="brand" MinWidth="40">
-                    
+
                 </DataGridTextColumn>
                 <DataGridTextColumn  Binding="{Binding model}" Header="model" MinWidth="40">
 
@@ -37,11 +37,11 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
             <MenuItem Header="Autók" Margin="10,0,0,0" Click="MenuItem_Click_2"/>
-            <MenuItem Header="Kölcsönzéseim"/>
+            <MenuItem Header="Kölcsönzéseim" Click="MenuItem_Click_3"/>
             <MenuItem HorizontalContentAlignment="Right" HorizontalAlignment="Right" Header="Kijelentkezés" Margin="0,0,10,0" Click="MenuItem_Click_1"/>
         </Menu>
         <Label Content="Kategóriák:" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="27,40,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
-        <Grid/>
+
 
     </Grid>
 </Window>

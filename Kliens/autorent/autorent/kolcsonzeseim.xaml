@@ -1,0 +1,30 @@
+﻿<Window x:Class="autorent.kolcsonzeseim"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:autorent"
+        mc:Ignorable="d"
+        Title="kolcsonzeseim" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="datagrid_kolcsonzeseimlista" AutoGenerateColumns="False"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,175,0,0" Height="188" Width="672" Loaded="datagrid_kolcsonzeseimlista_Loaded">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding carId}" Header="carId" MinWidth="30"/>
+                <DataGridTextColumn  Binding="{Binding fromDate}" Header="fromDate" MinWidth="60"/>
+                <DataGridTextColumn  Binding="{Binding toDate}" Header="toDate" MinWidth="60"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Kölcsönzéseim:" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="50,139,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
+        <Menu VerticalAlignment="Top" HorizontalAlignment="Center" Width="798" Height="23">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            <MenuItem Header="Autók" Margin="10,0,0,0" Click="MenuItem_Click_2"/>
+            <MenuItem Header="Kölcsönzéseim" Click="MenuItem_Click_3"/>
+            <MenuItem HorizontalContentAlignment="Right" HorizontalAlignment="Right" Header="Kijelentkezés" Margin="0,0,10,0" Click="MenuItem_Click_1"/>
+        </Menu>
+
+    </Grid>
+</Window>

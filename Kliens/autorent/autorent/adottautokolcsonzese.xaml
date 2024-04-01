@@ -1,0 +1,31 @@
+﻿<Window x:Class="autorent.adottautokolcsonzese"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:autorent"
+        mc:Ignorable="d"
+        Title="adottautokolcsonzese" Height="450" Width="800">
+    <Grid x:Name="grid_adottautokolcsonzes" Loaded="grid_adottautokolcsonzes_Loaded">
+        <Menu VerticalAlignment="Top" HorizontalAlignment="Center" Width="798" Height="23">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            <MenuItem Header="Autók" Margin="10,0,0,0" Click="MenuItem_Click_2"/>
+            <MenuItem Header="Kölcsönzéseim" Click="MenuItem_Click_3"/>
+            <MenuItem HorizontalContentAlignment="Right" HorizontalAlignment="Right" Header="Kijelentkezés" Margin="0,0,10,0" Click="MenuItem_Click_1"/>
+        </Menu>
+        <Label x:Name="label_autonev" Content="" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Margin="0,52,0,0" VerticalAlignment="Top" FontSize="50" Width="auto" Height="auto" FontWeight="Bold"/>
+        <Label x:Name="label_autokategoria" Content="" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="49,106,0,0" VerticalAlignment="Top" FontSize="24" Width="auto" Height="auto" FontWeight="Bold"/>
+        <Label Content="Tól:" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="25,186,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
+        <Label Content="Ig:" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="25,266,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
+        <Calendar x:Name="calandar_foglaltidopontok" Margin="536,192,82,50"/>
+        <Label x:Name="label_foglalasara" Content="Foglalás Ára:" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="199,266,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
+        <Button x:Name="gomb_foglalas" Content="Foglalás" FontWeight="Bold" FontSize="14"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="329,359,0,0" Height="38" Width="116" Click="gomb_foglalas_Click" IsEnabled="False"/>
+        <DatePicker x:Name="datepicker_tol" HorizontalAlignment="Left" Margin="67,222,0,0" VerticalAlignment="Top" SelectedDateChanged="datepicker_tol_SelectedDateChanged"/>
+        <DatePicker x:Name="datepicker_ig" HorizontalAlignment="Left" Margin="67,316,0,0" VerticalAlignment="Top" SelectedDateChanged="datepicker_ig_SelectedDateChanged"/>
+
+    </Grid>
+</Window>
