@@ -8,9 +8,10 @@ namespace autorent
 {
     internal class responsekolcsonzeseim
     {
-        public int carId {  get; set; }
+        public int carId { get; set; }
         public DateTime fromDate { get; set; }
         public DateTime toDate { get; set; }
         public string rentalTimestamp { get; set; }
+        public int price {  get; set; }
     }
 }

@@ -12,6 +12,7 @@
                 <DataGridTextColumn Binding="{Binding carId}" Header="carId" MinWidth="30"/>
                 <DataGridTextColumn  Binding="{Binding fromDate}" Header="fromDate" MinWidth="60"/>
                 <DataGridTextColumn  Binding="{Binding toDate}" Header="toDate" MinWidth="60"/>
+                <DataGridTextColumn  Binding="{Binding price}" Header="price" MinWidth="60"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Kölcsönzéseim:" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  Margin="50,139,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
