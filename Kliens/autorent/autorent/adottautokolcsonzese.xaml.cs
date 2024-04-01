@@ -111,8 +111,8 @@ namespace autorent
             }
             else
             {
-                int napokszama = (datepicker_tol.SelectedDate - datepicker_ig.SelectedDate).Value.Days;
-                ar = napokszama * adottautonapiara * -1;
+                int napokszama = (datepicker_ig.SelectedDate - datepicker_tol.SelectedDate).Value.Days+1;
+                ar = napokszama * adottautonapiara;
                 string szoveg = arcontent;
                 szoveg += " " + ar;
                 label_foglalasara.Content = szoveg;
@@ -148,8 +148,8 @@ namespace autorent
             }
             else
             {
-                int napokszama = (datepicker_tol.SelectedDate - datepicker_ig.SelectedDate).Value.Days;
-                ar = napokszama * adottautonapiara * -1;
+                int napokszama = (datepicker_ig.SelectedDate - datepicker_tol.SelectedDate).Value.Days+1;
+                ar = napokszama * adottautonapiara;
                 string szoveg = arcontent;
                 szoveg += " " + ar;
                 label_foglalasara.Content = szoveg;
