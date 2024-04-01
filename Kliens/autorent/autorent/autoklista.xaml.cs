@@ -49,28 +49,37 @@ namespace autorent
 
         private void window_autoklistadefault_load_Loaded(object sender, RoutedEventArgs e)
         {
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(MainWindow.apiurl);
-            var kategoriavalasz = client.GetAsync("/categories").Result;
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(MainWindow.apiurl);
+                var kategoriavalasz = client.GetAsync("/categories").Result;
 
-            if (kategoriavalasz.IsSuccessStatusCode)
-            {
-                var valaszadat=kategoriavalasz.Content.ReadAsStringAsync().Result;
-                var responseadat = JsonSerializer.Deserialize<List<responsekategoriak>>(valaszadat);
-                foreach (var item in responseadat)
+                if (kategoriavalasz.IsSuccessStatusCode)
                 {
-                    listbox_kategoria.Items.Add(item.name);
+                    var valaszadat = kategoriavalasz.Content.ReadAsStringAsync().Result;
+                    var responseadat = JsonSerializer.Deserialize<List<responsekategoriak>>(valaszadat);
+                    foreach (var item in responseadat)
+                    {
+                        listbox_kategoria.Items.Add(item.name);
+                    }
+
                 }
-                
+                var autolistavalasz = client.GetAsync("/cars").Result;
+                if (autolistavalasz.IsSuccessStatusCode)
+                {
+                    var valaszadat = autolistavalasz.Content.ReadAsStringAsync().Result;
+                    //var responseadat=JsonSerializer.Deserialize < List<responseautok >> (valaszadat);
+                    alap = datatablehelper.UseSystemTextJson(valaszadat);
+                    datagrid_autoklista.ItemsSource = alap.DefaultView;
+                }
             }
-            var autolistavalasz = client.GetAsync("/cars").Result;
-            if(autolistavalasz.IsSuccessStatusCode) 
+            catch
             {
-                var valaszadat = autolistavalasz.Content.ReadAsStringAsync().Result;
-                //var responseadat=JsonSerializer.Deserialize < List<responseautok >> (valaszadat);
-                alap = datatablehelper.UseSystemTextJson(valaszadat);             
-                datagrid_autoklista.ItemsSource = alap.DefaultView;
-            }                   
+                MessageBox.Show("Belső hiba!", "Hiba!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            
 
         }
         //Függvény amely visszatér a DataTablelel
@@ -85,52 +94,60 @@ namespace autorent
 
         private void listbox_kategoria_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //DataTable mostani = alap;       
-            //DataTable szurtrekodok=new DataTable();
-            //szurtrekodok.Columns.Add("id", typeof(System.Int32));
-            //szurtrekodok.Columns.Add("brand", typeof(System.String));
-            //szurtrekodok.Columns.Add("model", typeof(System.String));
-            //szurtrekodok.Columns.Add("category", typeof(System.String));
-            //szurtrekodok.Columns.Add("dailyPrice", typeof(System.Int32));
-            //Ha a default kategóriát válasszuk
-            if (listbox_kategoria.SelectedIndex == 0)
+            try
             {
-                datagrid_autoklista.ItemsSource = alap.DefaultView;
-                return;
+                //DataTable mostani = alap;       
+                //DataTable szurtrekodok=new DataTable();
+                //szurtrekodok.Columns.Add("id", typeof(System.Int32));
+                //szurtrekodok.Columns.Add("brand", typeof(System.String));
+                //szurtrekodok.Columns.Add("model", typeof(System.String));
+                //szurtrekodok.Columns.Add("category", typeof(System.String));
+                //szurtrekodok.Columns.Add("dailyPrice", typeof(System.Int32));
+                //Ha a default kategóriát válasszuk
+                if (listbox_kategoria.SelectedIndex == 0)
+                {
+                    datagrid_autoklista.ItemsSource = alap.DefaultView;
+                    return;
+                }
+                ////Debug.WriteLine(listbox_kategoria.SelectedIndex);
+                //foreach (DataRow item in mostani.Rows) 
+                //{
+
+                //    Debug.WriteLine(item["category"].ToString());
+                //    //Debug.WriteLine(listbox_kategoria.SelectedValue);
+                //    if (item["category"].ToString() == listbox_kategoria.SelectedValue.ToString())
+                //    {
+                //        DataRow row = szurtrekodok.NewRow();
+                //        row["id"] = item["id"];
+                //        row["brand"] = item["brand"];
+                //        row["model"] = item["model"];
+                //        row["category"] = item["category"];
+                //        row["dailyPrice"]=item["dailyPrice"];
+                //        szurtrekodok.Rows.Add(row);
+
+                //        // szurtrekodok.ImportRow(item);
+                //    }
+                //}                                         
+                //datagrid_autoklista.ItemsSource=szurtrekodok.DefaultView;
+                //Szűrés
+                DataTable szurtlisa = new DataTable();
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(MainWindow.apiurl);
+                var autolistavalasz = client.GetAsync("/cars?category=" + listbox_kategoria.SelectedValue.ToString()).Result;
+                Debug.WriteLine(autolistavalasz);
+                if (autolistavalasz.IsSuccessStatusCode)
+                {
+                    var valaszadat = autolistavalasz.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(valaszadat);
+                    szurtlisa = datatablehelper.UseSystemTextJson(valaszadat);
+                    datagrid_autoklista.ItemsSource = szurtlisa.DefaultView;
+                }
             }
-            ////Debug.WriteLine(listbox_kategoria.SelectedIndex);
-            //foreach (DataRow item in mostani.Rows) 
-            //{
-
-            //    Debug.WriteLine(item["category"].ToString());
-            //    //Debug.WriteLine(listbox_kategoria.SelectedValue);
-            //    if (item["category"].ToString() == listbox_kategoria.SelectedValue.ToString())
-            //    {
-            //        DataRow row = szurtrekodok.NewRow();
-            //        row["id"] = item["id"];
-            //        row["brand"] = item["brand"];
-            //        row["model"] = item["model"];
-            //        row["category"] = item["category"];
-            //        row["dailyPrice"]=item["dailyPrice"];
-            //        szurtrekodok.Rows.Add(row);
-
-            //        // szurtrekodok.ImportRow(item);
-            //    }
-            //}                                         
-            //datagrid_autoklista.ItemsSource=szurtrekodok.DefaultView;
-            //Szűrés
-            DataTable szurtlisa = new DataTable();
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(MainWindow.apiurl);          
-            var autolistavalasz = client.GetAsync("/cars?category="+listbox_kategoria.SelectedValue.ToString()).Result;
-            Debug.WriteLine(autolistavalasz);
-            if (autolistavalasz.IsSuccessStatusCode)
+            catch
             {
-                var valaszadat = autolistavalasz.Content.ReadAsStringAsync().Result;
-                Debug.WriteLine(valaszadat);
-                szurtlisa = datatablehelper.UseSystemTextJson(valaszadat);
-                datagrid_autoklista.ItemsSource = szurtlisa.DefaultView;
+                MessageBox.Show("Az adatbázis nem fut!", "Bejelntkezési hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
 
         }
 

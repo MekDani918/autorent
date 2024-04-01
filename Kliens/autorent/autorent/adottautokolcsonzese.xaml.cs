@@ -60,27 +60,34 @@ namespace autorent
 
         private void grid_adottautokolcsonzes_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            DataTable adottauto;
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(MainWindow.apiurl);
-            var autolistavalasz = client.GetAsync("/cars/"+adottautoid.ToString()).Result;
-            Debug.WriteLine(autolistavalasz);
-            if (autolistavalasz.IsSuccessStatusCode)
+            try
             {
-                var valaszadat = autolistavalasz.Content.ReadAsStringAsync().Result;
-                Debug.WriteLine(valaszadat);
-                var postvalasz = JsonSerializer.Deserialize<responseautok>(valaszadat);
-                adottautonapiara = postvalasz.dailyPrice;
-                label_autonev.Content = postvalasz.brand +" " +postvalasz.model;
-                label_autokategoria.Content = postvalasz.category;
-                for (int i = 0;i<postvalasz.unavailableDates.Count;i++) 
+                DataTable adottauto;
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(MainWindow.apiurl);
+                var autolistavalasz = client.GetAsync("/cars/" + adottautoid.ToString()).Result;
+                Debug.WriteLine(autolistavalasz);
+                if (autolistavalasz.IsSuccessStatusCode)
                 {
-                    calandar_foglaltidopontok.BlackoutDates.Add(new CalendarDateRange(postvalasz.unavailableDates[i]));
-                    datepicker_tol.BlackoutDates.Add(new CalendarDateRange(postvalasz.unavailableDates[i]));
-                    datepicker_ig.BlackoutDates.Add(new CalendarDateRange(postvalasz.unavailableDates[i]));
+                    var valaszadat = autolistavalasz.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(valaszadat);
+                    var postvalasz = JsonSerializer.Deserialize<responseautok>(valaszadat);
+                    adottautonapiara = postvalasz.dailyPrice;
+                    label_autonev.Content = postvalasz.brand + " " + postvalasz.model;
+                    label_autokategoria.Content = postvalasz.category;
+                    for (int i = 0; i < postvalasz.unavailableDates.Count; i++)
+                    {
+                        calandar_foglaltidopontok.BlackoutDates.Add(new CalendarDateRange(postvalasz.unavailableDates[i]));
+                        datepicker_tol.BlackoutDates.Add(new CalendarDateRange(postvalasz.unavailableDates[i]));
+                        datepicker_ig.BlackoutDates.Add(new CalendarDateRange(postvalasz.unavailableDates[i]));
+                    }
                 }
-            }          
+            }
+            catch
+            {
+                MessageBox.Show("Belső hiba", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+                      
         }
 
         private void datepicker_tol_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -159,35 +166,43 @@ namespace autorent
 
         private void gomb_foglalas_Click(object sender, RoutedEventArgs e)
         {
-            if (datepicker_tol.SelectedDate != null && datepicker_tol.SelectedDate != null)
+            try
             {
-                var postuser = new postkolcsonzes { carId = Convert.ToInt32(adottautoid), from = (((DateTimeOffset)datepicker_tol.SelectedDate).ToUnixTimeSeconds()).ToString(),to= (((DateTimeOffset)datepicker_ig.SelectedDate).ToUnixTimeSeconds()).ToString() };
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(MainWindow.apiurl);
-                //json konvertálás
-                var json = JsonSerializer.Serialize(postuser);
-                var postdata = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var valasz = client.PostAsync("/rentals", postdata).Result;
-
-                if (valasz.IsSuccessStatusCode)
+                if (datepicker_tol.SelectedDate != null && datepicker_tol.SelectedDate != null)
                 {
-                    var valaszadat = valasz.Content.ReadAsStringAsync().Result;
-                    var postvalasz = JsonSerializer.Deserialize<responsekolcsonzes>(valaszadat);
-                    postvalaszmessage = postvalasz.message;
-                    int id=postvalasz.id;
-                    MessageBox.Show(postvalaszmessage + "!", "Kölcsönzés");
-                    //Vissza
-                    autoklista listaablak = new autoklista();
-                    listaablak.Show();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show(postvalaszmessage + valasz.StatusCode, "Kölcsönzési Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                    var postuser = new postkolcsonzes { carId = Convert.ToInt32(adottautoid), from = (((DateTimeOffset)datepicker_tol.SelectedDate).ToUnixTimeSeconds()).ToString(), to = (((DateTimeOffset)datepicker_ig.SelectedDate).ToUnixTimeSeconds()).ToString() };
+                    var client = new HttpClient();
+                    client.BaseAddress = new Uri(MainWindow.apiurl);
+                    //json konvertálás
+                    var json = JsonSerializer.Serialize(postuser);
+                    var postdata = new StringContent(json, Encoding.UTF8, "application/json");
 
-            }           
+                    var valasz = client.PostAsync("/rentals", postdata).Result;
+
+                    if (valasz.IsSuccessStatusCode)
+                    {
+                        var valaszadat = valasz.Content.ReadAsStringAsync().Result;
+                        var postvalasz = JsonSerializer.Deserialize<responsekolcsonzes>(valaszadat);
+                        postvalaszmessage = postvalasz.message;
+                        int id = postvalasz.id;
+                        MessageBox.Show(postvalaszmessage + "!", "Kölcsönzés");
+                        //Vissza
+                        autoklista listaablak = new autoklista();
+                        listaablak.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show(postvalaszmessage + valasz.StatusCode, "Kölcsönzési Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Belső hiba", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+                      
         }
     }
 }
