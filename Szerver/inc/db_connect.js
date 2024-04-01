@@ -124,12 +124,14 @@ function getRentalsByUserId(userId){
             carId: 1,
             fromDate: "2024-03-21",
             toDate: "2024-03-21",
+            price: 9990,
             rentalTimestamp: "1711042568"
         },
         {
             carId: 3,
             fromDate: "2024-06-30",
             toDate: "2024-07-02",
+            price: 14990,
             rentalTimestamp: "1711042568"
         }
     ];
