@@ -5,7 +5,10 @@ using autorent.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -26,27 +29,49 @@ namespace autorent.Commands
 
         public override void Execute(object? parameter)
         {
-            Account? account = loginUser();
-            if(account == null)
+            try
             {
-                MessageBox.Show("Hibás felhasználónév vagy jelszó!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                Account? account = loginUser();
+                if (account == null)
+                    throw new Exception("Hibás felhasználónév vagy jelszó!");
+
+                _accountStore.CurrentAccount = account;
+
+                _navigationService.Navigate();
             }
-
-            _accountStore.CurrentAccount = account;
-
-            _navigationService.Navigate();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private Account? loginUser()
         {
-            //TODO Login logic here
-            if(_viewModel.Username.StartsWith("user") && _viewModel.Password == "123")
-            {
-                return new Account(_viewModel.Username, "ezegytoken");
-            }
+            if (string.IsNullOrEmpty(_viewModel.Username) || string.IsNullOrEmpty(_viewModel.Password))
+                throw new Exception("Kérjük Töltse ki a mezőket!");
 
-            return null;
+
+            var postuser = new userpost { username = _viewModel.Username, password = _viewModel.Password };
+            HttpResponseMessage resp = APICommunicationService.PostData<userpost>("/login", postuser);
+
+            if (!resp.IsSuccessStatusCode)
+            {
+                switch (resp.StatusCode)
+                {
+                    case HttpStatusCode.BadRequest:
+                        throw new Exception($"Hibás felhasználónév vagy jelszó!");
+                    case HttpStatusCode.InternalServerError:
+                        throw new Exception($"Valami nem jó!");
+                }
+            }
+                
+            string respDataString = resp.Content.ReadAsStringAsync().Result;
+            userresponse respData = JsonSerializer.Deserialize<userresponse>(respDataString);
+                
+            string token = respData.token;
+            string message = respData.message;
+            
+            return new Account(_viewModel.Username, token);
         }
     }
 }

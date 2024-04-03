@@ -11,13 +11,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.Json;
 using System.Net.Http;
+using autorent.Models;
 
 namespace autorent
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    
+
     public partial class MainWindow : Window
     {
         public static string felhasznalotoken="";

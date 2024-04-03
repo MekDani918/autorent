@@ -14,11 +14,13 @@ namespace autorent
     {
         private readonly AccountStore _accountStore;
         private readonly NavigationStore _navigationStore;
+        private readonly SelectedCarStore _selectedCarStore;
 
         public App()
         {
             _accountStore = new AccountStore();
             _navigationStore = new NavigationStore();
+            _selectedCarStore = new SelectedCarStore();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -57,7 +59,7 @@ namespace autorent
         {
             return new LayoutNavigationService<CarsViewModel>(
                 _navigationStore,
-                () => new CarsViewModel(),
+                () => new CarsViewModel(_accountStore, _selectedCarStore),
                 CreateNavigationBarViewModel);
         }
 

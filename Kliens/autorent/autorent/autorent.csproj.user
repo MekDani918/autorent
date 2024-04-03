@@ -13,6 +13,12 @@
     <Compile Update="autoklista.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Components\CarsDetails.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\CarsListing.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\Layout.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -23,6 +29,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="MainWindow2.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Cars2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\CarsView.xaml.cs">
@@ -45,6 +54,12 @@
     <Page Update="autoklista.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Components\CarsDetails.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\CarsListing.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Components\Layout.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -58,6 +73,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow2.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Cars2View.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\CarsView.xaml">

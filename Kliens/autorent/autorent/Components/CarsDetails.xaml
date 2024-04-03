@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="autorent.Components.CarsDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:autorent.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasSelectedCar}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <TextBlock Text="Válasszon autót a foglaláshoz!" FontSize="18" Margin="20 10" TextWrapping="Wrap" />
+            </Grid>
+
+            
+            <Grid>
+                        
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasSelectedCar}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                        
+                        
+                <StackPanel Grid.Row="0">
+                    <TextBlock TextAlignment="Center" FontSize="36" FontWeight="Bold">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Brand"/>
+                                <Binding Path="Model"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock Text="{Binding Category}" TextAlignment="Center" FontSize="16"/>
+                </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="20 0">
+                        <TextBlock Text="Tól:" FontSize="16" FontWeight="Bold"/>
+                        <DatePicker Margin="0 0 0 10" SelectedDate="{Binding SelectedDateFrom}"/>
+                        <TextBlock Text="Ig:" FontSize="16" FontWeight="Bold"/>
+                        <DatePicker Margin="0 0 0 10" SelectedDate="{Binding SelectedDateTo}"/>
+                        <Grid>
+                            <TextBlock Text="Foglalás Ára:" FontSize="16" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding CalculatedPriceSum, StringFormat={}{0} Ft}" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold"/>
+                        </Grid>
+                    </StackPanel>
+                    <Calendar Grid.Column="2" VerticalAlignment="Center"/>
+                </Grid>
+                <Button Grid.Row="2" Content="Foglalás" Command="{Binding RentCommand}" IsEnabled="{Binding IsRentButtonEnabled}" Height="35" MaxWidth="125" Margin="0 0 0 10"/>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
