@@ -13,7 +13,28 @@
     <Compile Update="autoklista.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Components\Layout.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\NavigationBar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="kolcsonzeseim.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MainWindow2.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CarsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\LayoutView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\LoginView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RentalsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -24,10 +45,31 @@
     <Page Update="autoklista.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Components\Layout.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\NavigationBar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="kolcsonzeseim.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow2.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CarsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\LayoutView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RentalsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

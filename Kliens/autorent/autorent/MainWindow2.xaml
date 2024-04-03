@@ -1,0 +1,28 @@
+﻿<Window x:Class="autorent.MainWindow2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:autorent.ViewModels"
+        xmlns:views="clr-namespace:autorent.Views"
+        xmlns:components="clr-namespace:autorent.Components"
+        xmlns:local="clr-namespace:autorent"
+        mc:Ignorable="d"
+        Title="MainWindow2" Height="450" Width="800">
+    <ContentControl Content="{Binding CurrentViewModel}" >
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                <views:LoginView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:CarsViewModel}">
+                <views:CarsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:RentalsViewModel}">
+                <views:RentalsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
+                <components:Layout />
+            </DataTemplate>
+        </ContentControl.Resources>
+    </ContentControl>
+</Window>
