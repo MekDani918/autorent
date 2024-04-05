@@ -17,5 +17,12 @@ namespace autorent.ViewModels
             CarsListingViewModel = new CarsListingViewModel(accountStore, selectedCarStore);
             CarsDetailsViewModel = new CarsDetailsViewModel(selectedCarStore, accountStore);
         }
+        public override void Dispose()
+        {
+            CarsListingViewModel.Dispose();
+            CarsDetailsViewModel.Dispose();
+
+            base.Dispose();
+        }
     }
 }

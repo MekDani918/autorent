@@ -63,15 +63,17 @@
 
                     <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="20 0">
                         <TextBlock Text="Tól:" FontSize="16" FontWeight="Bold"/>
-                        <DatePicker Margin="0 0 0 10" SelectedDate="{Binding SelectedDateFrom}"/>
+                        <local:CustomDatePicker SelectedDate="{Binding SelectedDateFrom}" CustomBlackoutDates="{Binding BlackoutDates}" Margin="0 0 0 10"/>
                         <TextBlock Text="Ig:" FontSize="16" FontWeight="Bold"/>
-                        <DatePicker Margin="0 0 0 10" SelectedDate="{Binding SelectedDateTo}"/>
+                        <local:CustomDatePicker SelectedDate="{Binding SelectedDateTo}" CustomBlackoutDates="{Binding BlackoutDates}" Margin="0 0 0 10"/>
                         <Grid>
                             <TextBlock Text="Foglalás Ára:" FontSize="16" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding CalculatedPriceSum, StringFormat={}{0} Ft}" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding CalculatedPriceSum,ConverterCulture=hu-HU, StringFormat={}{0:C0}}" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold"/>
                         </Grid>
                     </StackPanel>
-                    <Calendar Grid.Column="2" VerticalAlignment="Center"/>
+                    <Viewbox Grid.Column="2" VerticalAlignment="Center" MaxHeight="450" MaxWidth="450" >
+                        <local:CustomCalendar CustomBlackoutDates="{Binding BlackoutDates}" SelectionMode="SingleRange" IsHitTestVisible="False" CustomSelectedDates="{Binding SelectedDates}" Margin="20"/>
+                    </Viewbox>
                 </Grid>
                 <Button Grid.Row="2" Content="Foglalás" Command="{Binding RentCommand}" IsEnabled="{Binding IsRentButtonEnabled}" Height="35" MaxWidth="125" Margin="0 0 0 10"/>
             </Grid>

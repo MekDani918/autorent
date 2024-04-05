@@ -52,7 +52,7 @@ namespace autorent.Commands
 
 
             var postuser = new userpost { username = _viewModel.Username, password = _viewModel.Password };
-            HttpResponseMessage resp = APICommunicationService.PostData<userpost>("/login", postuser);
+            HttpResponseMessage resp = APICommunicationService.Post<userpost>("/login", postuser);
 
             if (!resp.IsSuccessStatusCode)
             {

@@ -13,7 +13,19 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <ComboBox Grid.Row="0" Height="30" ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}" VerticalContentAlignment="Center"/>
+            <ComboBox x:Name="comboboxCategory" Grid.Row="0" Height="30" ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}" VerticalContentAlignment="Center"/>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" Text="&lt;Válasszon kategóriát a szűréshez&gt;">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsCategorySelected}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
 
             <ListView Grid.Row="1" ItemsSource="{Binding CarsListingItemviewModels}" SelectedItem="{Binding SelectedCarsListingItemViewModel}" SelectionMode="Single">
                 <ListView.ItemContainerStyle>
@@ -46,7 +58,33 @@
                                     <TextBlock Grid.Row="1" Text="{Binding Category}" FontSize="11" FontStyle="Italic" />
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <TextBlock Text="{Binding Price, StringFormat={}{0} Ft}" FontSize="14" VerticalAlignment="Center" />
+                                    <StackPanel VerticalAlignment="Center">
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsDiscounted}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <TextBlock Text="{Binding Price,ConverterCulture=hu-HU, StringFormat={}{0:C0}/Nap}" FontSize="14" />
+                                    </StackPanel>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsDiscounted}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <TextBlock Text="{Binding Price,ConverterCulture=hu-HU, StringFormat={}{0:C0}/Nap}" FontSize="14" HorizontalAlignment="Right" FontStyle="Italic" TextDecorations="Strikethrough" />
+                                        <TextBlock Text="{Binding DiscountedPrice,ConverterCulture=hu-HU, StringFormat={}{0:C0}/Nap}" FontSize="14" HorizontalAlignment="Right" Foreground="Red" />
+                                    </StackPanel>
                                 </Grid>
                             </Grid>
                         </Border>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace autorent.Models
+﻿namespace autorent.Models
 {
     public class Car
     {
@@ -14,8 +8,9 @@ namespace autorent.Models
         public string Model { get; set; }
         public int DailyPrice { get; set; }
         public List<string> UnavailableDates { get; set; }
+        public double DiscountPercentage { get; set; }
 
-        public Car(int id, string category, string brand, string model, int dailyPrice, List<string> unavailableDates)
+        public Car(int id, string category, string brand, string model, int dailyPrice, List<string> unavailableDates, double discountPercentage = 0)
         {
             Id = id;
             Category = category;
@@ -23,6 +18,7 @@ namespace autorent.Models
             Model = model;
             DailyPrice = dailyPrice;
             UnavailableDates = unavailableDates;
+            DiscountPercentage = discountPercentage;
         }
     }
 }

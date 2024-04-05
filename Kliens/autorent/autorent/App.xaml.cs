@@ -51,7 +51,7 @@ namespace autorent
         {
             return new LayoutNavigationService<RentalsViewModel>(
                 _navigationStore,
-                () => new RentalsViewModel(),
+                () => new RentalsViewModel(_accountStore),
                 CreateNavigationBarViewModel);
         }
 

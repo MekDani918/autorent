@@ -1,18 +1,10 @@
 ﻿using autorent.Commands;
 using autorent.Models;
 using autorent.Stores;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace autorent.ViewModels
 {
@@ -27,6 +19,8 @@ namespace autorent.ViewModels
         public string Model => SelectedCar?.Model ?? "";
         public string Category => SelectedCar?.Category ?? "";
         public int DailyPrice => SelectedCar?.DailyPrice ?? 0;
+        
+        public ICommand RentCommand { get; }
 
         private int _calculatedPriceSum = 0;
         public int CalculatedPriceSum
@@ -68,17 +62,21 @@ namespace autorent.ViewModels
                 OnPropertyChanged(nameof(IsRentButtonEnabled));
             }
         }
-
-        public ICommand RentCommand { get; }
+        public ObservableCollection<CalendarDateRange> BlackoutDates { get; set; }
+        public ObservableCollection<DateTime> SelectedDates { get; set; }
 
 
         public CarsDetailsViewModel(SelectedCarStore selectedCarStore, AccountStore accountStore)
         {
+            BlackoutDates = new ObservableCollection<CalendarDateRange>();
+            SelectedDates = new ObservableCollection<DateTime>();
+
             _selectedCarStore = selectedCarStore;
 
             RentCommand = new RentCommand(this, accountStore);
 
             _selectedCarStore.SelectedCarChanged += SelectedCarStore_SelectedCarChanged;
+            updateBlackoutDates();
         }
 
         private void SelectedCarStore_SelectedCarChanged()
@@ -88,44 +86,93 @@ namespace autorent.ViewModels
             OnPropertyChanged(nameof(Model));
             OnPropertyChanged(nameof(Category));
             OnPropertyChanged(nameof(DailyPrice));
+
+            SelectedDateFrom = null;
+            SelectedDateTo = null;
+            OnPropertyChanged(nameof(SelectedDateFrom));
+            OnPropertyChanged(nameof(SelectedDateTo));
+
+            updateBlackoutDates();
+            updateSelectedDatesOnCalendar();
         }
 
-        private void updateCalendars()
+        private void updateBlackoutDates()
         {
-            //TODO
-            //Update calendars with current blackout dates
+            BlackoutDates.Clear();
+            if (SelectedCar != null)
+            {
+                foreach (string date in SelectedCar.UnavailableDates)
+                {
+                    BlackoutDates.Add(new CalendarDateRange(DateTime.Parse(date)));
+                }
+            }
+            BlackoutDates = new ObservableCollection<CalendarDateRange>(BlackoutDates);
+            OnPropertyChanged(nameof(BlackoutDates));
+        }
+        private void updateSelectedDatesOnCalendar()
+        {
+            SelectedDates.Clear();
+            if (!(SelectedCar == null || SelectedDateFrom == null || SelectedDateTo == null))
+            {
+                for (DateTime i = SelectedDateFrom.Value; i <= SelectedDateTo.Value; i = i.AddDays(1))
+                {
+                    SelectedDates.Add(i);
+                }
+            }
+            SelectedDates = new ObservableCollection<DateTime>(SelectedDates);
+            OnPropertyChanged(nameof(SelectedDates));
         }
 
         private void updatePrice()
         {
-            if (SelectedDateFrom > SelectedDateTo)
+            if (SelectedDateFrom == null || SelectedDateTo == null)
+            {
+                CalculatedPriceSum = 0;
+                IsRentButtonEnabled = false;
+            }
+            else if (SelectedDateFrom > SelectedDateTo)
             {
                 MessageBox.Show("Nem lehet a kezdődátum nagyobb mint a végdátum", "Dátumkiválasztási hiba");
                 SelectedDateTo = null;
                 IsRentButtonEnabled = false;
             }
-            else if (SelectedDateFrom == null || SelectedDateTo == null)
+            else if (SelectedDateFrom < DateTime.Now.Date || SelectedDateTo < DateTime.Now.Date)
             {
-                CalculatedPriceSum = 0;
+                MessageBox.Show("Múltbéli időre foglalás nem lehetséges", "Dátumkiválasztási hiba");
+                SelectedDateFrom = null;
+                SelectedDateTo = null;
                 IsRentButtonEnabled = false;
             }
-            else if (SelectedDateFrom == SelectedDateTo)
+            else if (CheckIfUnavailable())
             {
-                CalculatedPriceSum = SelectedCar.DailyPrice;
-                IsRentButtonEnabled = true;
+                MessageBox.Show("Az autó már foglalt a kijelölt időszakban", "Dátumkiválasztási hiba");
+                SelectedDateTo = null;
+                IsRentButtonEnabled = false;
             }
             else
             {
                 int days = (SelectedDateTo - SelectedDateFrom).Value.Days + 1;
-                CalculatedPriceSum = days * SelectedCar.DailyPrice;
+                CalculatedPriceSum = (int)Math.Round(days * SelectedCar.DailyPrice * (100 - SelectedCar.DiscountPercentage) / 100);
                 IsRentButtonEnabled = true;
+                updateSelectedDatesOnCalendar();
             }
         }
 
-        ~CarsDetailsViewModel()
+        private bool CheckIfUnavailable()
         {
-
+            foreach(CalendarDateRange drange in BlackoutDates)
+            {
+                if(
+                    (drange.Start >= SelectedDateFrom && drange.Start <= SelectedDateTo) &&
+                    (drange.End >= SelectedDateFrom && drange.End <= SelectedDateTo)
+                )
+                {
+                    return true;
+                }
+            }
+            return false;
         }
+
 
         public override void Dispose()
         {
@@ -133,6 +180,10 @@ namespace autorent.ViewModels
             _selectedCarStore.SelectedCar = null;
 
             base.Dispose();
+        }
+        ~CarsDetailsViewModel()
+        {
+
         }
     }
 }

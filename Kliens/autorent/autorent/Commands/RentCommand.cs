@@ -45,7 +45,7 @@ namespace autorent.Commands
             var postuser = new postkolcsonzes { carId = Convert.ToInt32(_viewModel.SelectedCar.Id), from = (((DateTimeOffset)_viewModel.SelectedDateFrom).ToUnixTimeSeconds()).ToString(), to = (((DateTimeOffset)_viewModel.SelectedDateTo).ToUnixTimeSeconds()).ToString() };
 
 
-            var valasz = APICommunicationService.PostData<postkolcsonzes>("/rentals", postuser, _accountStore.CurrentAccount.Token);
+            var valasz = APICommunicationService.Post<postkolcsonzes>("/rentals", postuser, _accountStore.CurrentAccount.Token);
 
             if (valasz.IsSuccessStatusCode)
             {

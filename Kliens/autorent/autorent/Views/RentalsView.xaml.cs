@@ -27,27 +27,5 @@ namespace autorent.Views
         {
             InitializeComponent();
         }
-
-        private void datagrid_kolcsonzeseimlista_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                DataTable kolcsonzeseim = new DataTable();
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(MainWindow.apiurl);
-                var kolcsonzesek = client.GetAsync("/rentals").Result;
-                if (kolcsonzesek.IsSuccessStatusCode)
-                {
-                    var valaszadat = kolcsonzesek.Content.ReadAsStringAsync().Result;
-                    Debug.WriteLine(valaszadat);
-                    kolcsonzeseim = datatablehelper.UseSystemTextJson(valaszadat);
-                    datagrid_kolcsonzeseimlista.ItemsSource = kolcsonzeseim.DefaultView;
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Belső hiba", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
     }
 }

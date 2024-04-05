@@ -121,14 +121,34 @@ function inserRental(carId, fromTimestamp, toTimestamp){
 function getRentalsByUserId(userId){
     return [
         {
-            carId: 1,
+            car: {
+                id: 1,
+                category: "Hatchback",
+                brand: "Volkswagen",
+                model: "Golf",
+                dailyPrice: 10000,
+                unavailableDates: [
+                    "2024-03-21"
+                ]
+            },
             fromDate: "2024-03-21",
             toDate: "2024-03-21",
             price: 9990,
             rentalTimestamp: "1711042568"
         },
         {
-            carId: 3,
+            car: {
+                id: 3,
+                category: "SUV",
+                brand: "Barabus",
+                model: "G63",
+                dailyPrice: 25000,
+                unavailableDates: [
+                    "2024-06-30",
+                    "2024-07-01",
+                    "2024-07-02"
+                ]
+            },
             fromDate: "2024-06-30",
             toDate: "2024-07-02",
             price: 14990,

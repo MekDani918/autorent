@@ -1,14 +1,8 @@
-﻿using autorent.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace autorent.Services
 {
@@ -17,7 +11,7 @@ namespace autorent.Services
         public readonly static string _apiUrl = "http://127.0.0.1:3000";
 
 
-        public static HttpResponseMessage PostData<T>(string url, T data, string? token = null)
+        public static HttpResponseMessage Post<T>(string url, T data, string? token = null)
         {
             using (var client = new HttpClient())
             {
@@ -61,6 +55,48 @@ namespace autorent.Services
                     throw new Exception("Valami nem jó!");
                 }
             }
+        }
+        public static T GetObject<T>(string endpoint, string token)
+        {
+            HttpResponseMessage resp = APICommunicationService.GetData(endpoint, token);
+
+            if (!resp.IsSuccessStatusCode)
+            {
+                switch (resp.StatusCode)
+                {
+                    case HttpStatusCode.Unauthorized:
+                        throw new Exception($"Authentikációs hiba!");
+                    case HttpStatusCode.NotFound:
+                    case HttpStatusCode.InternalServerError:
+                        throw new Exception($"Valami nem jó!");
+                }
+            }
+
+            string respDataString = resp.Content.ReadAsStringAsync().Result;
+            T respData = JsonSerializer.Deserialize<T>(respDataString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            return respData;
+        }
+        public static List<T> GetListOfObject<T>(string endpoint, string token)
+        {
+            HttpResponseMessage resp = APICommunicationService.GetData(endpoint, token);
+
+            if (!resp.IsSuccessStatusCode)
+            {
+                switch (resp.StatusCode)
+                {
+                    case HttpStatusCode.Unauthorized:
+                        throw new Exception($"Authentikációs hiba!");
+                    case HttpStatusCode.NotFound:
+                    case HttpStatusCode.InternalServerError:
+                        throw new Exception($"Valami nem jó!");
+                }
+            }
+
+            string respDataString = resp.Content.ReadAsStringAsync().Result;
+            List<T> respData = JsonSerializer.Deserialize<List<T>>(respDataString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            return respData;
         }
     }
 }
