@@ -43,9 +43,9 @@ namespace autorent
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            MainWindow bejelenkezes = new MainWindow();
+            MainWindow2 bejelenkezes = new MainWindow2();
             bejelenkezes.Show();
-            MainWindow.felhasznalotoken = "";
+            MainWindow2.felhasznalotoken = "";
             this.Close();
         }
 
@@ -55,7 +55,7 @@ namespace autorent
             {
                 DataTable kolcsonzeseim = new DataTable();
                 var client = new HttpClient();
-                client.BaseAddress = new Uri(MainWindow.apiurl);
+                client.BaseAddress = new Uri(MainWindow2.apiurl);
                 var kolcsonzesek = client.GetAsync("/rentals").Result;
                 if (kolcsonzesek.IsSuccessStatusCode)
                 {

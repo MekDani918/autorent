@@ -39,9 +39,9 @@ namespace autorent
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            MainWindow bejelenkezes = new MainWindow();
+            MainWindow2 bejelenkezes = new MainWindow2();
             bejelenkezes.Show();
-            MainWindow.felhasznalotoken = "";
+            MainWindow2.felhasznalotoken = "";
             this.Close();
         }
 
@@ -65,7 +65,7 @@ namespace autorent
             {
                 DataTable adottauto;
                 var client = new HttpClient();
-                client.BaseAddress = new Uri(MainWindow.apiurl);
+                client.BaseAddress = new Uri(MainWindow2.apiurl);
                 var autolistavalasz = client.GetAsync("/cars/" + adottautoid.ToString()).Result;
                 Debug.WriteLine(autolistavalasz);
                 if (autolistavalasz.IsSuccessStatusCode)
@@ -173,7 +173,7 @@ namespace autorent
                 {
                     var postuser = new postkolcsonzes { carId = Convert.ToInt32(adottautoid), from = (((DateTimeOffset)datepicker_tol.SelectedDate).ToUnixTimeSeconds()).ToString(), to = (((DateTimeOffset)datepicker_ig.SelectedDate).ToUnixTimeSeconds()).ToString() };
                     var client = new HttpClient();
-                    client.BaseAddress = new Uri(MainWindow.apiurl);
+                    client.BaseAddress = new Uri(MainWindow2.apiurl);
                     //json konvertálás
                     var json = JsonSerializer.Serialize(postuser);
                     var postdata = new StringContent(json, Encoding.UTF8, "application/json");

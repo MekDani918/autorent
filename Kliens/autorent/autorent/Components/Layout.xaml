@@ -12,8 +12,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <local:NavigationBar Grid.Row="0" DataContext="{Binding NavigationBarViewModel}"/>
-        <ContentControl Grid.Row="1" Content="{Binding ContentViewModel}"/>
+        <local:NavigationBar Grid.Row="0" DataContext="{Binding NavigationBarViewModel}" IsTabStop="False"/>
+        <ContentControl Grid.Row="1" Content="{Binding ContentViewModel}" IsTabStop="False"/>
         
     </Grid>
 </UserControl>

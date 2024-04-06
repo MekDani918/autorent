@@ -20,14 +20,17 @@ namespace autorent.ViewModels
 {
     public class CarsListingViewModel : ViewModelBase
     {
+        private readonly AccountStore _accountStore;
+        private readonly SelectedCarStore _SelectedCarStore;
+
+
         private readonly ObservableCollection<CarsListingItemViewModel> _carsListingItemviewModels;
         private readonly ObservableCollection<Category> _categoryList;
         public IEnumerable<CarsListingItemViewModel> CarsListingItemviewModels => _carsListingItemviewModels;
         public IEnumerable<Category> CategoryList => _categoryList;
 
-        private readonly AccountStore _accountStore;
-        private readonly SelectedCarStore _SelectedCarStore;
 
+        public Car SelectedCar => _SelectedCarStore.SelectedCar;
         public bool IsCategorySelected => SelectedCategory != null;
         private Category _selectedCategory;
         public Category SelectedCategory
@@ -54,16 +57,12 @@ namespace autorent.ViewModels
                 _SelectedCarStore.SelectedCar = _selectedCarsListingItemViewModel?.Car;
             }
         }
-        public Car SelectedCar => _SelectedCarStore.SelectedCar;
 
         public CarsListingViewModel(AccountStore accountStore, SelectedCarStore selectedCarStore)
         {
             _carsListingItemviewModels = new ObservableCollection<CarsListingItemViewModel>();
             _categoryList = new ObservableCollection<Category>();
 
-            //_carsListingItemviewModels.Add(new CarsListingItemViewModel("Volkswagen", "golf", "Hatchback", 14990));
-            //_carsListingItemviewModels.Add(new CarsListingItemViewModel("BMW", "E30", "Coupe", 19990));
-            //_carsListingItemviewModels.Add(new CarsListingItemViewModel("Mercedes", "Barabus", "SUV", 9990));
             _accountStore = accountStore;
             _SelectedCarStore = selectedCarStore;
 
@@ -81,7 +80,7 @@ namespace autorent.ViewModels
                     cat = new List<Category>();
 
                 _categoryList.Add(new Category() { Id=-1,Name=""});
-                //SelectedCategory = _categoryList.Last();
+                
                 foreach (Category category in cat)
                 {
                     _categoryList.Add(category);
@@ -99,7 +98,6 @@ namespace autorent.ViewModels
             try
             {
                 string queryParams = "";
-                //if (!string.IsNullOrEmpty(SelectedCategory)) queryParams = $"?category={SelectedCategory}";
                 if (SelectedCategory?.Id >= 0) queryParams = $"?category={SelectedCategory.Name}";
 
                 List<Car> cars = APICommunicationService.GetListOfObject<Car>("/cars" + queryParams, _accountStore.CurrentAccount.Token);
@@ -109,8 +107,9 @@ namespace autorent.ViewModels
                 foreach (Car car in cars)
                 {
                     //TEST DISCOUNT FOR EVERY VW
+#if DEBUG
                     if (car.Brand == "Volkswagen") car.DiscountPercentage = 5;
-                    
+#endif                    
                     _carsListingItemviewModels.Add(new CarsListingItemViewModel(car));
                 }
             }

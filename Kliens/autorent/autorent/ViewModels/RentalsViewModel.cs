@@ -11,8 +11,6 @@ namespace autorent.ViewModels
         private readonly AccountStore _accountStore;
 
         private List<Rental> _rentals;
-
-        private DataTable kolcsonzeseim;
         public List<Rental> TableData
         {
             get => _rentals;
@@ -31,7 +29,6 @@ namespace autorent.ViewModels
 
         private void updateData()
         {
-            kolcsonzeseim = new DataTable();
             try
             {
                 TableData = APICommunicationService.GetListOfObject<Rental>("/rentals", _accountStore.CurrentAccount.Token);

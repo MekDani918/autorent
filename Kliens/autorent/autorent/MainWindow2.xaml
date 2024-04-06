@@ -3,26 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewmodels="clr-namespace:autorent.ViewModels"
-        xmlns:views="clr-namespace:autorent.Views"
-        xmlns:components="clr-namespace:autorent.Components"
         xmlns:local="clr-namespace:autorent"
         mc:Ignorable="d"
         Title="MainWindow2" Height="450" Width="800">
-    <ContentControl Content="{Binding CurrentViewModel}" >
-        <ContentControl.Resources>
-            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
-                <views:LoginView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:CarsViewModel}">
-                <views:Cars2View />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:RentalsViewModel}">
-                <views:RentalsView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
-                <components:Layout />
-            </DataTemplate>
-        </ContentControl.Resources>
-    </ContentControl>
+    
+    <Grid>
+        <Label Content="AutoRent Alkalmazás" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Margin="0,36,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label Content="Felhasználónév:" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Margin="0,78,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
+        <Label Content="Jelszó:" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  Margin="0,144,0,0" VerticalAlignment="Top" FontSize="16" Width="186" FontWeight="Bold"/>
+        <Button x:Name="gomb_bejelentkezes" Content="Bejelentkezés" FontWeight="Bold" FontSize="14" Click="gomb_bejelentkezes_Click" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,239,0,0" Height="50" Width="148"/>
+        <TextBox x:Name="textbox_felhasz" FontSize="14" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,109,0,0" Width="186" Height="30"/>
+        <TextBlock IsHitTestVisible="False" Text="Felhasználónév" Foreground="DarkGray" FontSize="14" Width="184" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,109,0,0" TextAlignment="Center" Padding="0,4,0,0" Grid.IsSharedSizeScope="True">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=textbox_felhasz}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <TextBox x:Name="textbox_password" FontSize="14" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,187,0,0" Width="186" Height="30"/>
+        <TextBlock IsHitTestVisible="False" Text="Jelszó" Foreground="DarkGray" FontSize="14" Width="187" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,187,0,0" TextAlignment="Center" Padding="0,4,0,0" Grid.IsSharedSizeScope="True">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=textbox_password}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </Grid>
 </Window>

@@ -19,6 +19,8 @@ namespace autorent.Commands
         private readonly CarsDetailsViewModel _viewModel;
         private readonly AccountStore _accountStore;
 
+        public event Action RentalSuccessful;
+
         public RentCommand(CarsDetailsViewModel viewModel, AccountStore accountStore)
         {
             _viewModel = viewModel;
@@ -42,14 +44,22 @@ namespace autorent.Commands
             if (_viewModel.SelectedDateFrom == null || _viewModel.SelectedDateTo == null)
                 throw new Exception("Hibás dátum");
 
-            var postuser = new postkolcsonzes { carId = Convert.ToInt32(_viewModel.SelectedCar.Id), from = (((DateTimeOffset)_viewModel.SelectedDateFrom).ToUnixTimeSeconds()).ToString(), to = (((DateTimeOffset)_viewModel.SelectedDateTo).ToUnixTimeSeconds()).ToString() };
+            TimeSpan offset = DateTimeOffset.Now.Offset;
+            DateTime? utcFromD = _viewModel.SelectedDateFrom?.ToUniversalTime() + offset;
+            DateTime? utcToD = _viewModel.SelectedDateTo?.ToUniversalTime() + offset;
 
+            var postuser = new postkolcsonzes {
+                carId = Convert.ToInt32(_viewModel.SelectedCar.Id),
+                from = (((DateTimeOffset)utcFromD).ToUnixTimeSeconds()).ToString(),
+                to = (((DateTimeOffset)utcToD).ToUnixTimeSeconds()).ToString()
+            };
 
             var valasz = APICommunicationService.Post<postkolcsonzes>("/rentals", postuser, _accountStore.CurrentAccount.Token);
 
             if (valasz.IsSuccessStatusCode)
             {
                 MessageBox.Show("Sikeres kölcsönzés!");
+                OnRentalSuccessful();
             }
             else
             {
@@ -62,6 +72,11 @@ namespace autorent.Commands
                         throw new Exception($"Valami nem jó!");
                 }
             }
+        }
+
+        private void OnRentalSuccessful()
+        {
+            RentalSuccessful?.Invoke();
         }
     }
 }

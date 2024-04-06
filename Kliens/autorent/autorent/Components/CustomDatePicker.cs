@@ -14,14 +14,26 @@ namespace autorent.Components
                 base.BlackoutDates.Clear();
                 foreach (CalendarDateRange range in value)
                 {
-                    base.BlackoutDates.Add(range);
+                    try
+                    {
+                        base.BlackoutDates.Add(range);
+                    }
+                    catch { }
                 }
                 SetValue(CustomBlackoutDatesProperty, value);
             }
         }
 
         public static readonly DependencyProperty CustomBlackoutDatesProperty =
-            DependencyProperty.Register("CustomBlackoutDates", typeof(ObservableCollection<CalendarDateRange>), typeof(CustomDatePicker), new PropertyMetadata(new ObservableCollection<CalendarDateRange>(), new PropertyChangedCallback(OnCustomBlackoutDatesPropertyChanged)));
+            DependencyProperty.Register(
+                "CustomBlackoutDates",
+                typeof(ObservableCollection<CalendarDateRange>),
+                typeof(CustomDatePicker),
+                new PropertyMetadata(
+                    new ObservableCollection<CalendarDateRange>(),
+                    new PropertyChangedCallback(OnCustomBlackoutDatesPropertyChanged)
+                )
+            );
 
         public CustomDatePicker()
         {
@@ -40,7 +52,11 @@ namespace autorent.Components
 
             foreach (CalendarDateRange drange in drangeCollection)
             {
-                element.BlackoutDates.Add(drange);
+                try
+                {
+                    element.BlackoutDates.Add(drange);
+                }
+                catch { }
             }
         }
     }

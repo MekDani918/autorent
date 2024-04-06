@@ -5,24 +5,32 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using autorent.Services;
 
 namespace autorent.ViewModels
 {
     public class CarsDetailsViewModel : ViewModelBase
     {
         private readonly SelectedCarStore _selectedCarStore;
+        private readonly AccountStore _accountStore;
 
-        public Car SelectedCar => _selectedCarStore.SelectedCar;
+        public ICommand RentCommand { get; }
         
+        public ObservableCollection<CalendarDateRange> BlackoutDates { get; set; }
+        public ObservableCollection<DateTime> SelectedDates { get; set; }
+        public Car SelectedCar;
+
         public bool HasSelectedCar => SelectedCar != null;
         public string Brand => SelectedCar?.Brand ?? "";
         public string Model => SelectedCar?.Model ?? "";
         public string Category => SelectedCar?.Category ?? "";
         public int DailyPrice => SelectedCar?.DailyPrice ?? 0;
-        
-        public ICommand RentCommand { get; }
 
         private int _calculatedPriceSum = 0;
+        private DateTime? _selectedDateFrom;
+        private DateTime? _selectedDateTo;
+        private bool _isRentButtonEnabled = false;
+
         public int CalculatedPriceSum
         {
             get => _calculatedPriceSum;
@@ -32,7 +40,6 @@ namespace autorent.ViewModels
                 OnPropertyChanged(nameof(CalculatedPriceSum));
             }
         }
-        private DateTime? _selectedDateFrom;
         public DateTime? SelectedDateFrom
         {
             get => _selectedDateFrom;
@@ -42,7 +49,6 @@ namespace autorent.ViewModels
                 updatePrice();
             }
         }
-        private DateTime? _selectedDateTo;
         public DateTime? SelectedDateTo
         {
             get => _selectedDateTo;
@@ -52,7 +58,6 @@ namespace autorent.ViewModels
                 updatePrice();
             }
         }
-        private bool _isRentButtonEnabled = false;
         public bool IsRentButtonEnabled
         {
             get => _isRentButtonEnabled;
@@ -62,9 +67,6 @@ namespace autorent.ViewModels
                 OnPropertyChanged(nameof(IsRentButtonEnabled));
             }
         }
-        public ObservableCollection<CalendarDateRange> BlackoutDates { get; set; }
-        public ObservableCollection<DateTime> SelectedDates { get; set; }
-
 
         public CarsDetailsViewModel(SelectedCarStore selectedCarStore, AccountStore accountStore)
         {
@@ -72,15 +74,22 @@ namespace autorent.ViewModels
             SelectedDates = new ObservableCollection<DateTime>();
 
             _selectedCarStore = selectedCarStore;
+            _accountStore = accountStore;
+
+            updateSelectedCar();
 
             RentCommand = new RentCommand(this, accountStore);
+            ((RentCommand)RentCommand).RentalSuccessful += OnRentalSuccessful;
 
-            _selectedCarStore.SelectedCarChanged += SelectedCarStore_SelectedCarChanged;
+            _selectedCarStore.SelectedCarChanged += OnSelectedCarChanged;
+
             updateBlackoutDates();
         }
 
-        private void SelectedCarStore_SelectedCarChanged()
+        private void OnSelectedCarChanged()
         {
+            updateSelectedCar();
+
             OnPropertyChanged(nameof(HasSelectedCar));
             OnPropertyChanged(nameof(Brand));
             OnPropertyChanged(nameof(Model));
@@ -99,6 +108,7 @@ namespace autorent.ViewModels
         private void updateBlackoutDates()
         {
             BlackoutDates.Clear();
+            OnPropertyChanged(nameof(BlackoutDates));
             if (SelectedCar != null)
             {
                 foreach (string date in SelectedCar.UnavailableDates)
@@ -157,6 +167,18 @@ namespace autorent.ViewModels
                 updateSelectedDatesOnCalendar();
             }
         }
+        private void updateSelectedCar()
+        {
+            if (_selectedCarStore.SelectedCar == null)
+            {
+                SelectedCar = null;
+            }
+            else
+            {
+                SelectedCar = APICommunicationService.GetObject<Car>($"/cars/{_selectedCarStore.SelectedCar.Id}", _accountStore.CurrentAccount.Token);
+            }
+            OnPropertyChanged(nameof(SelectedCar));
+        }
 
         private bool CheckIfUnavailable()
         {
@@ -173,17 +195,18 @@ namespace autorent.ViewModels
             return false;
         }
 
+        private void OnRentalSuccessful()
+        {
+            OnSelectedCarChanged();
+        }
 
         public override void Dispose()
         {
-            _selectedCarStore.SelectedCarChanged -= SelectedCarStore_SelectedCarChanged;
+            _selectedCarStore.SelectedCarChanged -= OnSelectedCarChanged;
+            ((RentCommand)RentCommand).RentalSuccessful -= OnRentalSuccessful;
             _selectedCarStore.SelectedCar = null;
 
             base.Dispose();
-        }
-        ~CarsDetailsViewModel()
-        {
-
         }
     }
 }

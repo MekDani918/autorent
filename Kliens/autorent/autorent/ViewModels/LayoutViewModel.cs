@@ -16,13 +16,6 @@ namespace autorent.ViewModels
         public NavigationBarViewModel NavigationBarViewModel { get; set; }
         public ViewModelBase ContentViewModel { get; }
 
-        //AccountStore _accountStore;
-
-        //public string Username => _accountStore.CurrentAccount?.Username;
-
-
-        //public ICommand NavigateLoginCommand { get; }
-
         public LayoutViewModel(NavigationBarViewModel navigationBarViewModel, ViewModelBase contentViewModel)
         {
             NavigationBarViewModel = navigationBarViewModel;
@@ -36,12 +29,5 @@ namespace autorent.ViewModels
 
             base.Dispose();
         }
-
-        //public LayoutViewModel(NavigationBarViewModel navigationBarViewModel, AccountStore accountStore, NavigationService<LoginViewModel> loginNavigationService)
-        //{
-        //    NavigationBarViewModel = navigationBarViewModel;
-        //    _accountStore = accountStore;
-        //    NavigateLoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
-        //}
     }
 }

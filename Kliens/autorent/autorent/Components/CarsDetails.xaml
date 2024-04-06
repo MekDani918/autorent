@@ -67,7 +67,7 @@
                         <TextBlock Text="Ig:" FontSize="16" FontWeight="Bold"/>
                         <local:CustomDatePicker SelectedDate="{Binding SelectedDateTo}" CustomBlackoutDates="{Binding BlackoutDates}" Margin="0 0 0 10"/>
                         <Grid>
-                            <TextBlock Text="Foglalás Ára:" FontSize="16" FontWeight="Bold"/>
+                            <TextBlock Text="Fizetendő:" FontSize="16" FontWeight="Bold"/>
                             <TextBlock Text="{Binding CalculatedPriceSum,ConverterCulture=hu-HU, StringFormat={}{0:C0}}" HorizontalAlignment="Right" FontSize="16" FontWeight="Bold"/>
                         </Grid>
                     </StackPanel>

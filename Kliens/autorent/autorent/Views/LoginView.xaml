@@ -14,6 +14,12 @@
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="FontSize" Value="14" />
         </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="Height" Value="35" />
+            <Setter Property="Margin" Value="20 0 20 10" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,12 +32,21 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="1" Grid.Row="0" Margin="0 0 0 20" Text="AutoRent Alkalmazás" FontSize="24" VerticalAlignment="Bottom" TextAlignment="Center"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="40 0 40 20" Text="AutoRent Alkalmazás" FontSize="24" VerticalAlignment="Bottom" TextAlignment="Center"/>
         <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
             <TextBlock Text="Felhasználónév:" FontSize="16" FontWeight="Bold" TextAlignment="Center"/>
-            <TextBox Text="{Binding Username}" />
+            <TextBox Text="{Binding Username}">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding LoginCommand}" Key="Enter" />
+                </TextBox.InputBindings>
+            </TextBox>
             <TextBlock Text="Jelszó:" FontSize="16" FontWeight="Bold" TextAlignment="Center"/>
-            <TextBox Text="{Binding Password}" />
+            <!--<TextBox Text="{Binding Password}" />-->
+            <PasswordBox x:Name="password_box" PasswordChanged="password_box_PasswordChanged">
+                <PasswordBox.InputBindings>
+                    <KeyBinding Command="{Binding LoginCommand}" Key="Enter" />
+                </PasswordBox.InputBindings>
+            </PasswordBox>
             <Button Content="Bejelentkezés" Margin="40 0" FontWeight="Bold" FontSize="14" Height="50" Command="{Binding LoginCommand}"/>
         </StackPanel>
     </Grid>

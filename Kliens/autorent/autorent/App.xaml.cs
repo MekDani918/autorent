@@ -28,8 +28,8 @@ namespace autorent
             INavigationService<LoginViewModel> loginNavigationService = CreateLoginNavigationService();
             loginNavigationService.Navigate();
 
-            //MainWindow = new MainWindow();
-            MainWindow = new MainWindow2()
+            //MainWindow = new MainWindow2();
+            MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(_navigationStore)
             };
@@ -42,10 +42,6 @@ namespace autorent
         {
             return new NavigationService<LoginViewModel>(_navigationStore, () => new LoginViewModel(_accountStore, CreateCarsNavigationService()));
         }
-        //private INavigationService<LayoutViewModel> CreateLayoutViewNavigationService()
-        //{
-        //    return new NavigationService<LayoutViewModel>(_navigationStore, () => new LayoutViewModel(_navigationBarViewModel, CreateLoginNavigationService() ));
-        //}
 
         private INavigationService<RentalsViewModel> CreateRentalsNavigationService()
         {

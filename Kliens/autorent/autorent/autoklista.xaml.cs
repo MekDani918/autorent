@@ -41,9 +41,9 @@ namespace autorent
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            MainWindow bejelenkezes=new MainWindow();
+            MainWindow2 bejelenkezes=new MainWindow2();
             bejelenkezes.Show();
-            MainWindow.felhasznalotoken = "";
+            MainWindow2.felhasznalotoken = "";
             this.Close();
             
         }
@@ -53,7 +53,7 @@ namespace autorent
             try
             {
                 var client = new HttpClient();
-                client.BaseAddress = new Uri(MainWindow.apiurl);
+                client.BaseAddress = new Uri(MainWindow2.apiurl);
                 var kategoriavalasz = client.GetAsync("/categories").Result;
 
                 if (kategoriavalasz.IsSuccessStatusCode)
@@ -133,7 +133,7 @@ namespace autorent
                 //Szűrés
                 DataTable szurtlisa = new DataTable();
                 var client = new HttpClient();
-                client.BaseAddress = new Uri(MainWindow.apiurl);
+                client.BaseAddress = new Uri(MainWindow2.apiurl);
                 var autolistavalasz = client.GetAsync("/cars?category=" + listbox_kategoria.SelectedValue.ToString()).Result;
                 Debug.WriteLine(autolistavalasz);
                 if (autolistavalasz.IsSuccessStatusCode)

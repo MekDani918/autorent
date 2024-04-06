@@ -14,7 +14,11 @@ namespace autorent.Components
                 base.BlackoutDates.Clear();
                 foreach (CalendarDateRange range in value)
                 {
-                    base.BlackoutDates.Add(range);
+                    try
+                    {
+                        base.BlackoutDates.Add(range);
+                    }
+                    catch { }
                 }
                 SetValue(CustomBlackoutDatesProperty, value);
             }
@@ -26,9 +30,25 @@ namespace autorent.Components
         }
 
         public static readonly DependencyProperty CustomBlackoutDatesProperty =
-            DependencyProperty.Register("CustomBlackoutDates", typeof(ObservableCollection<CalendarDateRange>), typeof(CustomCalendar), new PropertyMetadata(new ObservableCollection<CalendarDateRange>(), new PropertyChangedCallback(OnCustomBlackoutDatesPropertyChanged)));
+            DependencyProperty.Register(
+                "CustomBlackoutDates",
+                typeof(ObservableCollection<CalendarDateRange>),
+                typeof(CustomCalendar),
+                new PropertyMetadata(
+                    new ObservableCollection<CalendarDateRange>(),
+                    new PropertyChangedCallback(OnCustomBlackoutDatesPropertyChanged)
+                )
+            );
         public static readonly DependencyProperty CustomSelectedDatesProperty =
-            DependencyProperty.Register("CustomSelectedDates", typeof(ObservableCollection<DateTime>), typeof(CustomCalendar), new PropertyMetadata(new ObservableCollection<DateTime>(), new PropertyChangedCallback(OnCustomSelectedDatesPropertyChanged)));
+            DependencyProperty.Register(
+                "CustomSelectedDates",
+                typeof(ObservableCollection<DateTime>),
+                typeof(CustomCalendar),
+                new PropertyMetadata(
+                    new ObservableCollection<DateTime>(),
+                    new PropertyChangedCallback(OnCustomSelectedDatesPropertyChanged)
+                )
+            );
 
         public CustomCalendar()
         {
@@ -48,7 +68,11 @@ namespace autorent.Components
 
             foreach (CalendarDateRange drange in drangeCollection)
             {
-                element.BlackoutDates.Add(drange);
+                try
+                {
+                    element.BlackoutDates.Add(drange);
+                }
+                catch { }
             }
         }
         private static void OnCustomSelectedDatesPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
