@@ -1,6 +1,9 @@
 # Rendszerfejlesztés - Autorent (37. csapat)
 
-
+Alapértelmezett felhasználó:
+| Felhasználónév | Jelszó |
+| ------ | ------ |
+| user | 123 |
 
 ## Telepítés
 
