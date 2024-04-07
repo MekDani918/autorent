@@ -55,6 +55,15 @@ Az `autorent.dll.config` fájlban módosítható az API címe
 
 **Server:** Node, Express, Sequelize, SQLite
 
+> [!NOTE]
+> Fejlesztéshez használt eszközök verziói:
+> - **Node.js:** v20.11.1
+> - **VisualStudio22:** 17.9.5
+> - **.NET Runtime:** 8.0.3
+> - **.NET SDK:** 8.0.202
+> - **Windows Desktop Runtime:** 8.0.1
+> 
+
 
 ## Készítők
 - [Auerbach Dávid](https://www.github.com/david01978) (KCE9TF)
