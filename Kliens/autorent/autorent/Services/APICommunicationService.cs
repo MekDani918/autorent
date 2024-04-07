@@ -3,12 +3,13 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using autorent.Properties;
 
 namespace autorent.Services
 {
     public class APICommunicationService
     {
-        public readonly static string _apiUrl = "http://127.0.0.1:3000";
+        public readonly static string _apiUrl = new Settings().API_URL ?? "http://127.0.0.1:3000";
 
 
         public static HttpResponseMessage Post<T>(string url, T data, string? token = null)
