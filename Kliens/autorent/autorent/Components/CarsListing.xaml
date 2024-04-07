@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="autorent.Components.CarsListing"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:autorent.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ComboBox x:Name="comboboxCategory" Grid.Row="0" Height="30" ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}" VerticalContentAlignment="Center"/>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" Text="&lt;Válasszon kategóriát a szűréshez&gt;">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsCategorySelected}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <ListView Grid.Row="1" ItemsSource="{Binding CarsListingItemviewModels}" SelectedItem="{Binding SelectedCarsListingItemViewModel}" SelectionMode="Single">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="3 5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" FontSize="13" FontWeight="Bold">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="Brand"/>
+                                                <Binding Path="Model"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="1" Text="{Binding Category}" FontSize="11" FontStyle="Italic" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <StackPanel VerticalAlignment="Center">
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsDiscounted}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <TextBlock Text="{Binding Price,ConverterCulture=hu-HU, StringFormat={}{0:C0}/Nap}" FontSize="14" />
+                                    </StackPanel>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsDiscounted}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <TextBlock Text="{Binding Price,ConverterCulture=hu-HU, StringFormat={}{0:C0}/Nap}" FontSize="14" HorizontalAlignment="Right" FontStyle="Italic" TextDecorations="Strikethrough" />
+                                        <TextBlock Text="{Binding DiscountedPrice,ConverterCulture=hu-HU, StringFormat={}{0:C0}/Nap}" FontSize="14" HorizontalAlignment="Right" Foreground="Red" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Border>
+</UserControl>
