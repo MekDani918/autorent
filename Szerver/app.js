@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-const loginRouteHandler = require('./inc/routes/login');
-const categoriesRouteHandler = require('./inc/routes/categories');
-const carsRouteHandler = require('./inc/routes/cars');
-const rentalsRouteHandler = require('./inc/routes/rentals');
+const loginRouteHandler = require('./inc/routes/loginRouteHandler');
+const categoriesRouteHandler = require('./inc/routes/categoriesRouteHandler');
+const carsRouteHandler = require('./inc/routes/carsRouteHandler');
+const rentalsRouteHandler = require('./inc/routes/rentalsRouteHandler');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
