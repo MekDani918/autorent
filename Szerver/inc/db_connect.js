@@ -98,11 +98,13 @@ let rentals = [
 async function initDb(){
     try{
         await sequelize.authenticate();
+        await sequelize.sync({ alter: true });
         console.log("SQLite DB Connected!");
     }
     catch(err){
         console.log(err);
     }
+
 
     //try{
     //    const user = await User.create({ username: "user", name: "user", password: "123" });
