@@ -98,7 +98,7 @@ let rentals = [
 async function initDb(){
     try{
         await sequelize.authenticate();
-        await sequelize.sync({ alter: true });
+        await sequelize.sync(/*{ alter: true }*/);
         console.log("SQLite DB Connected!");
     }
     catch(err){
