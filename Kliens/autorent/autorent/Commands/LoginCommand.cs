@@ -17,13 +17,15 @@ namespace autorent.Commands
     public class LoginCommand : CommandBase
     {
         private readonly LoginViewModel _viewModel;
-        private readonly INavigationService<CarsViewModel> _navigationService;
+        private readonly INavigationService<CarsViewModel> _carsNavigationService;
+        private readonly INavigationService<AdminCategoriesViewModel> _adminCategoriesNavigationService;
         private readonly AccountStore _accountStore;
 
-        public LoginCommand(LoginViewModel viewModel, AccountStore accountStore, INavigationService<CarsViewModel> navigationService)
+        public LoginCommand(LoginViewModel viewModel, AccountStore accountStore, INavigationService<CarsViewModel> carsNavigationService, INavigationService<AdminCategoriesViewModel> adminCategoriesNavigationService)
         {
             _viewModel = viewModel;
-            _navigationService = navigationService;
+            _carsNavigationService = carsNavigationService;
+            _adminCategoriesNavigationService = adminCategoriesNavigationService;
             _accountStore = accountStore;
         }
 
@@ -37,7 +39,10 @@ namespace autorent.Commands
 
                 _accountStore.CurrentAccount = account;
 
-                _navigationService.Navigate();
+                if(account.Role == "admin")
+                    _adminCategoriesNavigationService.Navigate();
+                else
+                    _carsNavigationService.Navigate();
             }
             catch (Exception ex)
             {

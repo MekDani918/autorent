@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace autorent.ViewModels
 {
-    public class AdminCategoriesViewModel : ViewModelBase
+    public class AdminSalesViewModel : ViewModelBase
     {
-
     }
 }

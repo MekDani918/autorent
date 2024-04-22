@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace autorent.Models
 {
-    internal class JwtPayload
+    public class JwtPayload
     {
         public int Id { get; set; }
         public string Username { get; set; }

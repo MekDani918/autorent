@@ -27,21 +27,25 @@ namespace autorent.ViewModels
         public NavigationBarViewModel(
             INavigationService<CarsViewModel> carsNavigationService,
             INavigationService<RentalsViewModel> rentalsNavigationService,
+
+            INavigationService<AdminCategoriesViewModel> adminCategoriesNavigationService,
+            INavigationService<AdminCarsViewModel> adminCarsNavigationService,
+            INavigationService<AdminSalesViewModel> adminSalesNavigationService,
+            
             INavigationService<LoginViewModel> loginNavigationService,
-            AccountStore accountStore,
-            INavigationService<AdminCategoriesViewModel> AdminCategoriesNavigationService
-            //INavigationService<AdminCategoriesViewModel> navigateAdminCarsCommand,
-            //INavigationService<AdminCategoriesViewModel> navigateAdminSalesCommand
-            )
+            AccountStore accountStore)
         {
             NavigateCarsCommand = new NavigateCommand<CarsViewModel>(carsNavigationService);
             NavigateRentalsCommand = new NavigateCommand<RentalsViewModel>(rentalsNavigationService);
+
+            NavigateAdminCategoriesCommand = new NavigateCommand<AdminCategoriesViewModel>(adminCategoriesNavigationService);
+            NavigateAdminCarsCommand = new NavigateCommand<AdminCarsViewModel>(adminCarsNavigationService); ;
+            NavigateAdminSalesCommand = new NavigateCommand<AdminSalesViewModel>(adminSalesNavigationService); ;
+            
             NavigateLoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
             LogoutCommand = new LogoutCommand(accountStore, loginNavigationService);
+
             _accountStore = accountStore;
-            NavigateAdminCategoriesCommand = new NavigateCommand<AdminCategoriesViewModel>(AdminCategoriesNavigationService);
-            // NavigateAdminCarsCommand = navigateAdminCarsCommand;
-            // NavigateAdminSalesCommand = navigateAdminSalesCommand;
         }
 
     }

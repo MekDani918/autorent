@@ -26,6 +26,12 @@
             <DataTemplate DataType="{x:Type viewmodels:AdminCategoriesViewModel}">
                 <views:AdminCategoriesView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminCarsViewModel}">
+                <views:AdminCarsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminSalesViewModel}">
+                <views:AdminSalesView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

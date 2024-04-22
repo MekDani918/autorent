@@ -10,7 +10,7 @@ namespace autorent.Services
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             //Debug.WriteLine(value.ToString());
-           // Debug.WriteLine(parameter.ToString());
+            // Debug.WriteLine(parameter.ToString());
 
             if (value.ToString() == parameter.ToString())
                 return Visibility.Visible;

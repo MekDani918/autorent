@@ -40,7 +40,7 @@ namespace autorent
 
         private INavigationService<LoginViewModel> CreateLoginNavigationService()
         {
-            return new NavigationService<LoginViewModel>(_navigationStore, () => new LoginViewModel(_accountStore, CreateCarsNavigationService()));
+            return new NavigationService<LoginViewModel>(_navigationStore, () => new LoginViewModel(_accountStore, CreateCarsNavigationService(), CreateAdminCategoriesNavigationService()));
         }
 
         private INavigationService<RentalsViewModel> CreateRentalsNavigationService()
@@ -65,17 +65,31 @@ namespace autorent
                 () => new AdminCategoriesViewModel(),
                 CreateNavigationBarViewModel);
         }
+        private INavigationService<AdminCarsViewModel> CreateAdminCarsNavigationService()
+        {
+            return new LayoutNavigationService<AdminCarsViewModel>(
+                _navigationStore,
+                () => new AdminCarsViewModel(),
+                CreateNavigationBarViewModel);
+        }
+        private INavigationService<AdminSalesViewModel> CreateAdminSalesNavigationService()
+        {
+            return new LayoutNavigationService<AdminSalesViewModel>(
+                _navigationStore,
+                () => new AdminSalesViewModel(),
+                CreateNavigationBarViewModel);
+        }
 
         private NavigationBarViewModel CreateNavigationBarViewModel()
         {
             return new NavigationBarViewModel(
                 CreateCarsNavigationService(),
                 CreateRentalsNavigationService(),
+                CreateAdminCategoriesNavigationService(),
+                CreateAdminCarsNavigationService(),
+                CreateAdminSalesNavigationService(),
                 CreateLoginNavigationService(),
-                _accountStore,
-                CreateAdminCategoriesNavigationService()
-
-                );
+                _accountStore);
         }
     }
 

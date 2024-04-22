@@ -48,9 +48,9 @@
         <Button Grid.Column="0" Command="{Binding NavigateCarsCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=user}" Content="Autók"/>
         <Button Grid.Column="1" Command="{Binding NavigateRentalsCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=user}" Content="Kölcsönzéseim"/>
 
-        <Button Grid.Column="0" Command="{Binding NavigateRentalsCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=admin}"  Content="Autók"/>
-        <Button Grid.Column="1" Command="{Binding NavigateAdminCategoriesCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=admin}"  Content="Kategóriák"/>
-        <Button Grid.Column="2" Command="{Binding NavigateRentalsCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=admin}"  Content="Leárazások"/>
+        <Button Grid.Column="0" Command="{Binding NavigateAdminCategoriesCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=admin}"  Content="Kategóriák"/>
+        <Button Grid.Column="1" Command="{Binding NavigateAdminCarsCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=admin}"  Content="Autók"/>
+        <Button Grid.Column="2" Command="{Binding NavigateAdminSalesCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=admin}"  Content="Leárazások"/>
         
         <Button Grid.Column="4" Command="{Binding LogoutCommand}" Content="Kijelentkezés"/>
     </Grid>
