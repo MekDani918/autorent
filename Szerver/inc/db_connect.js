@@ -214,6 +214,17 @@ async function getCarById(carId){
     }
     return null;
 }
+async function getSales(){
+    try{
+        return await Sale.findAll();
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+    return [];
+}
 async function inserRental(userId, carId, fromTimestamp, toTimestamp){
     try{
         const car = await Car.findOne({
@@ -357,6 +368,7 @@ async function getCustomCarObject(car_in){
     sobj.brand = car_in.brand;
     sobj.model = car_in.model;
     sobj.dailyPrice = car_in.daily_price;
+    sobj.discountPercentage = 0;
     sobj.unavailableDates = [];
 
     let today = new Date();
@@ -376,6 +388,14 @@ async function getCustomCarObject(car_in){
                 }
             }
         }
+    }
+
+    let c_sale = await Sale.findOne({
+        where: { car_id: car_in.id },
+        attributes: ['percent']
+    });
+    if(c_sale && c_sale.percent){
+        sobj.discountPercentage = c_sale.percent;
     }
 
     return sobj;
