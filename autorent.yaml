@@ -362,6 +362,7 @@ paths:
       tags:
         - cars
       summary: Update one car by id
+      operationId: editCar
       parameters:
         - name: carId
           in: path
@@ -370,6 +371,26 @@ paths:
           schema:
             type: integer
             format: int64
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                brand:
+                  type: string
+                  example: "Volkswagen"
+                model:
+                  type: string
+                  example: "Golf"
+                categoryId:
+                  type: integer
+                  example: 2
+                dailyPrice:
+                  type: integer
+                  example: 10000
       security:
         - bearerAuth: []
       responses:
@@ -685,6 +706,9 @@ components:
         dailyPrice:
           type: integer
           example: 10000
+        discountPercentage:
+          type: integer
+          example: 10
         unavailableDates:
           type: array
           items:
