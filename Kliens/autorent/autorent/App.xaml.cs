@@ -69,7 +69,7 @@ namespace autorent
         {
             return new LayoutNavigationService<AdminCarsViewModel>(
                 _navigationStore,
-                () => new AdminCarsViewModel(),
+                () => new AdminCarsViewModel(_accountStore, _selectedCarStore),
                 CreateNavigationBarViewModel);
         }
         private INavigationService<AdminSalesViewModel> CreateAdminSalesNavigationService()

@@ -17,9 +17,9 @@ namespace autorent.Commands
     public class LoginCommand : CommandBase
     {
         private readonly LoginViewModel _viewModel;
+        private readonly AccountStore _accountStore;
         private readonly INavigationService<CarsViewModel> _carsNavigationService;
         private readonly INavigationService<AdminCategoriesViewModel> _adminCategoriesNavigationService;
-        private readonly AccountStore _accountStore;
 
         public LoginCommand(LoginViewModel viewModel, AccountStore accountStore, INavigationService<CarsViewModel> carsNavigationService, INavigationService<AdminCategoriesViewModel> adminCategoriesNavigationService)
         {

@@ -106,10 +106,6 @@ namespace autorent.ViewModels
 
                 foreach (Car car in cars)
                 {
-                    //TEST DISCOUNT FOR EVERY VW
-#if DEBUG
-                    if (car.Brand == "Volkswagen") car.DiscountPercentage = 5;
-#endif                    
                     _carsListingItemviewModels.Add(new CarsListingItemViewModel(car));
                 }
             }

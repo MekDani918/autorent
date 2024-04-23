@@ -13,6 +13,9 @@
     <Compile Update="autoklista.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Components\AdminCarsDetails.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\CarsDetails.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -55,6 +58,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="autoklista.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\AdminCarsDetails.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Components\CarsDetails.xaml">

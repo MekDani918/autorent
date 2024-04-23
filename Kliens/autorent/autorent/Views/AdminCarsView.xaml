@@ -3,10 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:components="clr-namespace:autorent.Components"
              xmlns:local="clr-namespace:autorent.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock>Cars</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+
+        <components:CarsListing Grid.Column="0" Margin="20 20 10 20" DataContext="{Binding CarsListingViewModel}" IsTabStop="False"/>
+        <components:AdminCarsDetails Grid.Column="1" Margin="10 20 20 20" DataContext="{Binding AdminCarsDetailsViewModel}" IsTabStop="False"/>
     </Grid>
 </UserControl>
