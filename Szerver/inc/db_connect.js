@@ -140,6 +140,41 @@ async function getUserByUsername(username){
     }
     return null;
 }
+async function createCategory(nameIn){
+    try{
+        let s_cat = await Category.findOne({
+            where: { name: nameIn }
+        });
+
+        if(s_cat){
+            return null;
+        }
+
+        const c_category = await Category.create({
+            name: nameIn
+        });
+
+        return c_category;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+}
+async function getCategoryById(catId){
+    try{
+        const resCat = await Category.findOne({
+            where: { id: catId }
+        });
+        return resCat;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+}
 async function getCategories(){
     try{
         return await Category.findAll();
@@ -421,6 +456,8 @@ async function getCustomCarObject(car_in){
 initDb();
 
 module.exports.getUserByUsername = getUserByUsername;
+module.exports.createCategory = createCategory;
+module.exports.getCategoryById = getCategoryById;
 module.exports.getCategories = getCategories;
 module.exports.createCar = createCar;
 module.exports.getCars = getCars;
