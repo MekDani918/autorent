@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { getCategories } = require("../db_connect.js")
+const { getCategories } = require("../db_connect.js");
 
 
 router.get('/', async(req, res, next) => {

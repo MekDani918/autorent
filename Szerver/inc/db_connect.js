@@ -151,6 +151,25 @@ async function getCategories(){
     }
     return [];
 }
+async function createCar(brand, model, categoryId, dailyPrice){
+    try{
+        const c_car = await Car.create({
+            category_id: categoryId,
+            brand: brand,
+            model: model,
+            daily_price: dailyPrice
+        });
+
+        let car = await getCarById(c_car.id);
+
+        return car;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+}
 async function getCars(category = null){
     try{
         let optionsObj = {
@@ -203,9 +222,7 @@ async function getCarById(carId){
                 model: Category
             }
         });
-        if(car)
-            return await getCustomCarObject(car);
-        return null;
+        return car;
     }
     catch(e){
         const err = new Error("Internal Database Error!");
@@ -405,7 +422,9 @@ initDb();
 
 module.exports.getUserByUsername = getUserByUsername;
 module.exports.getCategories = getCategories;
+module.exports.createCar = createCar;
 module.exports.getCars = getCars;
 module.exports.getCarById = getCarById;
 module.exports.inserRental = inserRental;
 module.exports.getRentalsByUserId = getRentalsByUserId;
+module.exports.getCustomCarObject = getCustomCarObject;
