@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE'
       });
     }
+
+    toJSON(){
+      return { ...this.get(), createdAt: undefined, updatedAt: undefined }
+    }
   }
   Sale.init({
     car_id: {

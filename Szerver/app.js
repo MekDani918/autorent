@@ -6,6 +6,7 @@ const loginRouteHandler = require('./inc/routes/loginRouteHandler');
 const categoriesRouteHandler = require('./inc/routes/categoriesRouteHandler');
 const carsRouteHandler = require('./inc/routes/carsRouteHandler');
 const rentalsRouteHandler = require('./inc/routes/rentalsRouteHandler');
+const salesRouteHandler = require('./inc/routes/salesRouteHandler');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -25,6 +26,7 @@ app.use('/login', loginRouteHandler);
 app.use('/categories', categoriesRouteHandler);
 app.use('/cars', carsRouteHandler);
 app.use('/rentals', rentalsRouteHandler);
+app.use('/sales', salesRouteHandler);
 
 
 app.use((req, res, next) => {

@@ -266,6 +266,43 @@ async function getCarById(carId){
     }
     return null;
 }
+async function createSale(carIdIn, descriptionIn, percentIn){
+    try{
+        let s_sale = await Sale.findOne({
+            where: { car_id: carIdIn }
+        });
+
+        if(s_sale){
+            return null;
+        }
+
+        const c_sale = await Sale.create({
+            car_id: carIdIn,
+            description: descriptionIn,
+            percent: percentIn
+        });
+
+        return c_sale;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+}
+async function getSaleById(saleIdIn){
+    try{
+        const resSale = await Sale.findOne({
+            where: { id: saleIdIn }
+        });
+        return resSale;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+}
 async function getSales(){
     try{
         return await Sale.findAll();
@@ -464,4 +501,7 @@ module.exports.getCars = getCars;
 module.exports.getCarById = getCarById;
 module.exports.inserRental = inserRental;
 module.exports.getRentalsByUserId = getRentalsByUserId;
+module.exports.getSales = getSales;
+module.exports.getSaleById = getSaleById;
+module.exports.createSale = createSale;
 module.exports.getCustomCarObject = getCustomCarObject;
