@@ -4,6 +4,7 @@ Alapértelmezett felhasználó:
 | Felhasználónév | Jelszó |
 | ------ | ------ |
 | user | 123 |
+| admin | 123 |
 
 ## Telepítés
 
