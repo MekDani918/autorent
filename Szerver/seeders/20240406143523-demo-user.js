@@ -14,9 +14,10 @@ module.exports = {
     */
 	return queryInterface.bulkInsert('users', [
 		{
-		  username: 'admin1',
+		  username: 'admin',
 		  name: 'Mátics Dániel',
-		  password: 'eadmin1',
+		  password: '123',
+		  is_admin: true,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
 		},
@@ -24,6 +25,7 @@ module.exports = {
 		  username: 'admin2',
 		  name: 'Auerbach Dávid',
 		  password: 'admin2',
+		  is_admin: true,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
 		},
@@ -31,6 +33,7 @@ module.exports = {
 		  username: 'admin3',
 		  name: 'Koronczai Hont',
 		  password: 'admin3',
+		  is_admin: true,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
 		},
@@ -38,6 +41,7 @@ module.exports = {
 		  username: 'bercza',
 		  name: 'Bercza Ferenc Dániel',
 		  password: 'bercza',
+		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
 		},
@@ -45,6 +49,7 @@ module.exports = {
 		  username: 'harnos',
 		  name: 'Harnos Adrián Dániel',
 		  password: 'harnos',
+		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
 		},
@@ -52,6 +57,7 @@ module.exports = {
 		  username: 'dmartin',
 		  name: 'Dömök Martin',
 		  password: 'dmartin',
+		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
 		},
@@ -59,6 +65,7 @@ module.exports = {
 		  username: 'heller',
 		  name: 'Heller Benedek',
 		  password: 'hbeni',
+		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
 		},
@@ -66,6 +73,7 @@ module.exports = {
 		  username: 'user',
 		  name: 'User123',
 		  password: '123',
+		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
 		},
@@ -73,6 +81,7 @@ module.exports = {
 		  username: 'fkrisi',
 		  name: 'Ferencz Kristóf',
 		  password: 'krisi',
+		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
 		},
@@ -80,6 +89,7 @@ module.exports = {
 		  username: 'hadam',
 		  name: 'A. Ádám',
 		  password: 'aharcos',
+		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
 		}

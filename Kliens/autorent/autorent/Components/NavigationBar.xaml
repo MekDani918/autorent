@@ -2,12 +2,14 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:services="clr-namespace:autorent.Services"
              xmlns:local="clr-namespace:autorent.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="#696969">
     <UserControl.Resources>
+        <services:RoleToVisibilityConverter x:Key="roleToVisibilityConverter"/>
         <Style TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="White" />
@@ -38,12 +40,18 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Column="0" Command="{Binding NavigateCarsCommand}" Content="Autók"/>
-        <Button Grid.Column="1" Command="{Binding NavigateRentalsCommand}" Content="Kölcsönzéseim"/>
-        <Button Grid.Column="3" Command="{Binding LogoutCommand}" Content="Kijelentkezés"/>
+        <Button Grid.Column="0" Command="{Binding NavigateCarsCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=user}" Content="Autók"/>
+        <Button Grid.Column="1" Command="{Binding NavigateRentalsCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=user}" Content="Kölcsönzéseim"/>
+
+        <Button Grid.Column="0" Command="{Binding NavigateAdminCategoriesCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=admin}"  Content="Kategóriák"/>
+        <Button Grid.Column="1" Command="{Binding NavigateAdminCarsCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=admin}"  Content="Autók"/>
+        <Button Grid.Column="2" Command="{Binding NavigateAdminSalesCommand}" Visibility="{Binding Role, Converter={StaticResource roleToVisibilityConverter}, ConverterParameter=admin}"  Content="Leárazások"/>
+        
+        <Button Grid.Column="4" Command="{Binding LogoutCommand}" Content="Kijelentkezés"/>
     </Grid>
 </UserControl>

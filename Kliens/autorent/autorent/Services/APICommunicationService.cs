@@ -37,6 +37,31 @@ namespace autorent.Services
 
             }
         }
+        public static HttpResponseMessage Patch<T>(string url, T data, string? token = null)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_apiUrl);
+                if (token != null)
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                try
+                {
+                    string json = JsonSerializer.Serialize(data);
+
+                    using (StringContent content = new StringContent(json, Encoding.UTF8, "application/json"))
+                    {
+                        HttpResponseMessage response = client.PatchAsync(url, content).Result;
+
+                        return response;
+                    }
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Valami nem jó!");
+                }
+
+            }
+        }
         public static HttpResponseMessage GetData(string url, string? token = null)
         {
             using (var client = new HttpClient())
@@ -47,6 +72,26 @@ namespace autorent.Services
                 try
                 {
                     HttpResponseMessage response = client.GetAsync(url).Result;
+
+
+                    return response;
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Valami nem jó!");
+                }
+            }
+        }
+        public static HttpResponseMessage Delete(string url, string? token = null)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_apiUrl);
+                if (token != null)
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                try
+                {
+                    HttpResponseMessage response = client.DeleteAsync(url).Result;
 
 
                     return response;

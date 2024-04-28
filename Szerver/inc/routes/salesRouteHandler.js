@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const { createCategory, getCategoryById, getCategories } = require("../db_connect.js");
+const { createSale, getSaleByCarId, getSales } = require("../db_connect.js");
 const checkAuth = require("../authenticate_user.js");
 const authorizeAdmin = require("../authorize_user.js");
 
 
 router.get('/', async(req, res, next) => {
     try{
-        res.status(200).json(await getCategories());
+        res.status(200).json(await getSales());
     }
     catch(e){
         next(e);
@@ -16,39 +16,41 @@ router.get('/', async(req, res, next) => {
 });
 router.post('/', checkAuth, authorizeAdmin, async(req, res, next) => {
     try{
-        const name = req.body.name;
+        const carId = req.body.carId;
+        const description = req.body.description;
+        const percent = req.body.percent;
 
-        if(!name){
+        if(!carId || !percent){
             const err = new Error("Invalid data supplied!");
             err.status = 400;
             throw err;
         }
 
-        let category = await createCategory(name);
+        let sale = await createSale(carId, description, percent);
 
-        if(!category){
+        if(!sale){
             return res.status(400).json({
-                message: 'Category already exists!'
+                message: 'Sale already exists for this car'
             });
         }
         
-        res.status(201).json(category);
+        res.status(201).json(sale);
     }
     catch(e){
         next(e);
     }
 });
-router.delete('/:categoryId', checkAuth, authorizeAdmin, async(req, res, next) => {
+router.delete('/:saleId', checkAuth, authorizeAdmin, async(req, res, next) => {
     try{
-        const categoryId = req.params.categoryId;
-        let cat = await getCategoryById(categoryId);
+        const saleId = req.params.saleId;
+        let sale = await getSaleByCarId(saleId);
         
-        if(!cat){
+        if(!sale){
             next();
             return;
         }
         
-        await cat.destroy();
+        await sale.destroy();
 
         res.status(200).json({
             message: 'Deleted successfully!'

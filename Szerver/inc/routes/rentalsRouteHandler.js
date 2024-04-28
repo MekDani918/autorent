@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { inserRental, getRentalsByUserId } = require("../db_connect.js")
+const { inserRental, getRentalsByUserId } = require("../db_connect.js");
+const checkAuth = require("../authenticate_user.js");
 
-router.get('/', async(req, res, next) => {
+router.get('/', checkAuth, async(req, res, next) => {
     try{
-        const userId = 1;
+        const userId = req.userData.id;
         res.status(200).json(await getRentalsByUserId(userId));
     }
     catch(e){
@@ -13,9 +14,9 @@ router.get('/', async(req, res, next) => {
     }
 });
 
-router.post('/', async(req, res, next) => {
+router.post('/', checkAuth, async(req, res, next) => {
     try{
-        const userId = 1;
+        const userId = req.userData.id;
         const carId = req.body.carId;
         const from = req.body.from;
         const to = req.body.to;

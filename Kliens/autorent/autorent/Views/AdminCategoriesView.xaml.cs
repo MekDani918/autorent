@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace autorent.Components
+namespace autorent.Views
 {
     /// <summary>
-    /// Interaction logic for NavigationBar.xaml
+    /// Interaction logic for AdminCategories.xaml
     /// </summary>
-    public partial class NavigationBar : UserControl
+    public partial class AdminCategoriesView : UserControl
     {
-        public NavigationBar()
+        public AdminCategoriesView()
         {
             InitializeComponent();
         }
-
     }
 }

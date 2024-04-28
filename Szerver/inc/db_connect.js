@@ -140,6 +140,41 @@ async function getUserByUsername(username){
     }
     return null;
 }
+async function createCategory(nameIn){
+    try{
+        let s_cat = await Category.findOne({
+            where: { name: nameIn }
+        });
+
+        if(s_cat){
+            return null;
+        }
+
+        const c_category = await Category.create({
+            name: nameIn
+        });
+
+        return c_category;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+}
+async function getCategoryById(catId){
+    try{
+        const resCat = await Category.findOne({
+            where: { id: catId }
+        });
+        return resCat;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+}
 async function getCategories(){
     try{
         return await Category.findAll();
@@ -150,6 +185,25 @@ async function getCategories(){
         throw err;
     }
     return [];
+}
+async function createCar(brand, model, categoryId, dailyPrice){
+    try{
+        const c_car = await Car.create({
+            category_id: categoryId,
+            brand: brand,
+            model: model,
+            daily_price: dailyPrice
+        });
+
+        let car = await getCarById(c_car.id);
+
+        return car;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
 }
 async function getCars(category = null){
     try{
@@ -203,9 +257,7 @@ async function getCarById(carId){
                 model: Category
             }
         });
-        if(car)
-            return await getCustomCarObject(car);
-        return null;
+        return car;
     }
     catch(e){
         const err = new Error("Internal Database Error!");
@@ -213,6 +265,58 @@ async function getCarById(carId){
         throw err;
     }
     return null;
+}
+async function createSale(carIdIn, descriptionIn, percentIn){
+    try{
+        let s_sale = await Sale.findOne({
+            where: { car_id: carIdIn }
+        });
+
+        if(s_sale){
+            return null;
+        }
+
+        const c_sale = await Sale.create({
+            car_id: carIdIn,
+            description: descriptionIn,
+            percent: percentIn
+        });
+
+        return await getCustomSaleObject(c_sale);
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+}
+async function getSaleByCarId(carIdIn){
+    try{
+        const resSale = await Sale.findOne({
+            where: { car_id: carIdIn }
+        });
+        return resSale;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+}
+async function getSales(){
+    try{
+        let s_sales = []
+        for( s_sale of await Sale.findAll()){
+            s_sales.push(await getCustomSaleObject(s_sale));
+        }
+        return s_sales;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+    return [];
 }
 async function inserRental(userId, carId, fromTimestamp, toTimestamp){
     try{
@@ -357,6 +461,7 @@ async function getCustomCarObject(car_in){
     sobj.brand = car_in.brand;
     sobj.model = car_in.model;
     sobj.dailyPrice = car_in.daily_price;
+    sobj.discountPercentage = 0;
     sobj.unavailableDates = [];
 
     let today = new Date();
@@ -378,14 +483,36 @@ async function getCustomCarObject(car_in){
         }
     }
 
+    let c_sale = await Sale.findOne({
+        where: { car_id: car_in.id },
+        attributes: ['percent']
+    });
+    if(c_sale && c_sale.percent){
+        sobj.discountPercentage = c_sale.percent;
+    }
+
     return sobj;
+}
+async function getCustomSaleObject(sale_in){
+    csObj = {};
+    csObj.car = await getCustomCarObject(await getCarById(sale_in.car_id));
+    csObj.description = sale_in.description;
+    csObj.percent = sale_in.percent;
+    return csObj;
 }
 
 initDb();
 
 module.exports.getUserByUsername = getUserByUsername;
+module.exports.createCategory = createCategory;
+module.exports.getCategoryById = getCategoryById;
 module.exports.getCategories = getCategories;
+module.exports.createCar = createCar;
 module.exports.getCars = getCars;
 module.exports.getCarById = getCarById;
 module.exports.inserRental = inserRental;
 module.exports.getRentalsByUserId = getRentalsByUserId;
+module.exports.getSales = getSales;
+module.exports.getSaleByCarId = getSaleByCarId;
+module.exports.createSale = createSale;
+module.exports.getCustomCarObject = getCustomCarObject;

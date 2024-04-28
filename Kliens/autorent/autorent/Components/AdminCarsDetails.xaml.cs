@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace autorent.Components
 {
     /// <summary>
-    /// Interaction logic for NavigationBar.xaml
+    /// Interaction logic for AdminCarsDetails.xaml
     /// </summary>
-    public partial class NavigationBar : UserControl
+    public partial class AdminCarsDetails : UserControl
     {
-        public NavigationBar()
+        public AdminCarsDetails()
         {
             InitializeComponent();
         }
-
     }
 }

@@ -31,9 +31,9 @@ namespace autorent.ViewModels
         }
 
         public ICommand LoginCommand { get; }
-        public LoginViewModel(AccountStore accountStore, INavigationService<CarsViewModel> carsNavigationService)
+        public LoginViewModel(AccountStore accountStore, INavigationService<CarsViewModel> carsNavigationService, INavigationService<AdminCategoriesViewModel> adminCategoriesNavigationService)
         {
-            LoginCommand = new LoginCommand(this, accountStore, carsNavigationService);
+            LoginCommand = new LoginCommand(this, accountStore, carsNavigationService, adminCategoriesNavigationService);
         }
     }
 }

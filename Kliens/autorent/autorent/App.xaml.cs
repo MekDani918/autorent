@@ -40,7 +40,7 @@ namespace autorent
 
         private INavigationService<LoginViewModel> CreateLoginNavigationService()
         {
-            return new NavigationService<LoginViewModel>(_navigationStore, () => new LoginViewModel(_accountStore, CreateCarsNavigationService()));
+            return new NavigationService<LoginViewModel>(_navigationStore, () => new LoginViewModel(_accountStore, CreateCarsNavigationService(), CreateAdminCategoriesNavigationService()));
         }
 
         private INavigationService<RentalsViewModel> CreateRentalsNavigationService()
@@ -58,12 +58,36 @@ namespace autorent
                 () => new CarsViewModel(_accountStore, _selectedCarStore),
                 CreateNavigationBarViewModel);
         }
+        private INavigationService<AdminCategoriesViewModel> CreateAdminCategoriesNavigationService()
+        {
+            return new LayoutNavigationService<AdminCategoriesViewModel>(
+                _navigationStore,
+                () => new AdminCategoriesViewModel(_accountStore),
+                CreateNavigationBarViewModel);
+        }
+        private INavigationService<AdminCarsViewModel> CreateAdminCarsNavigationService()
+        {
+            return new LayoutNavigationService<AdminCarsViewModel>(
+                _navigationStore,
+                () => new AdminCarsViewModel(_accountStore, _selectedCarStore),
+                CreateNavigationBarViewModel);
+        }
+        private INavigationService<AdminSalesViewModel> CreateAdminSalesNavigationService()
+        {
+            return new LayoutNavigationService<AdminSalesViewModel>(
+                _navigationStore,
+                () => new AdminSalesViewModel(_accountStore),
+                CreateNavigationBarViewModel);
+        }
 
         private NavigationBarViewModel CreateNavigationBarViewModel()
         {
             return new NavigationBarViewModel(
                 CreateCarsNavigationService(),
                 CreateRentalsNavigationService(),
+                CreateAdminCategoriesNavigationService(),
+                CreateAdminCarsNavigationService(),
+                CreateAdminSalesNavigationService(),
                 CreateLoginNavigationService(),
                 _accountStore);
         }

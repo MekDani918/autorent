@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
-const { getUserByUsername } = require("../db_connect.js")
+const { getUserByUsername } = require("../db_connect.js");
 
 router.post('/', async(req, res, next) => {
     try{
@@ -16,9 +17,21 @@ router.post('/', async(req, res, next) => {
             throw err;
         }
     
+        const token = jwt.sign(
+            {
+                id: user.id,
+                username: user.username,
+                role: user.is_admin ? 'admin' : 'user'
+            },
+            process.env.JWT_KEY || 'secret',
+            {
+                expiresIn: "1h"
+            }
+        );
+        
         res.status(200).json({
             message: "Auth successful",
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+            token: token
         });
     }
     catch(e){
