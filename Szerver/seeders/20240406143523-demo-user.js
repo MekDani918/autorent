@@ -14,9 +14,9 @@ module.exports = {
     */
 	return queryInterface.bulkInsert('users', [
 		{
-		  username: 'admin1',
+		  username: 'admin',
 		  name: 'Mátics Dániel',
-		  password: 'eadmin1',
+		  password: '123',
 		  is_admin: true,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
