@@ -282,7 +282,7 @@ async function createSale(carIdIn, descriptionIn, percentIn){
             percent: percentIn
         });
 
-        return c_sale;
+        return await getCustomSaleObject(c_sale);
     }
     catch(e){
         const err = new Error("Internal Database Error!");
@@ -305,7 +305,11 @@ async function getSaleById(saleIdIn){
 }
 async function getSales(){
     try{
-        return await Sale.findAll();
+        let s_sales = []
+        for( s_sale of await Sale.findAll()){
+            s_sales.push(await getCustomSaleObject(s_sale));
+        }
+        return s_sales;
     }
     catch(e){
         const err = new Error("Internal Database Error!");
@@ -488,6 +492,14 @@ async function getCustomCarObject(car_in){
     }
 
     return sobj;
+}
+async function getCustomSaleObject(sale_in){
+    csObj = {};
+    csObj.id = sale_in.id;
+    csObj.car = await getCustomCarObject(await getCarById(sale_in.car_id));
+    csObj.description = sale_in.description;
+    csObj.percent = sale_in.percent;
+    return csObj;
 }
 
 initDb();
