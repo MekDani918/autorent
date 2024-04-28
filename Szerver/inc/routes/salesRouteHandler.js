@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { createSale, getSaleById, getSales } = require("../db_connect.js");
+const { createSale, getSaleByCarId, getSales } = require("../db_connect.js");
 const checkAuth = require("../authenticate_user.js");
 const authorizeAdmin = require("../authorize_user.js");
 
@@ -43,7 +43,7 @@ router.post('/', checkAuth, authorizeAdmin, async(req, res, next) => {
 router.delete('/:saleId', checkAuth, authorizeAdmin, async(req, res, next) => {
     try{
         const saleId = req.params.saleId;
-        let sale = await getSaleById(saleId);
+        let sale = await getSaleByCarId(saleId);
         
         if(!sale){
             next();

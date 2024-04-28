@@ -290,10 +290,10 @@ async function createSale(carIdIn, descriptionIn, percentIn){
         throw err;
     }
 }
-async function getSaleById(saleIdIn){
+async function getSaleByCarId(carIdIn){
     try{
         const resSale = await Sale.findOne({
-            where: { id: saleIdIn }
+            where: { car_id: carIdIn }
         });
         return resSale;
     }
@@ -495,7 +495,6 @@ async function getCustomCarObject(car_in){
 }
 async function getCustomSaleObject(sale_in){
     csObj = {};
-    csObj.id = sale_in.id;
     csObj.car = await getCustomCarObject(await getCarById(sale_in.car_id));
     csObj.description = sale_in.description;
     csObj.percent = sale_in.percent;
@@ -514,6 +513,6 @@ module.exports.getCarById = getCarById;
 module.exports.inserRental = inserRental;
 module.exports.getRentalsByUserId = getRentalsByUserId;
 module.exports.getSales = getSales;
-module.exports.getSaleById = getSaleById;
+module.exports.getSaleByCarId = getSaleByCarId;
 module.exports.createSale = createSale;
 module.exports.getCustomCarObject = getCustomCarObject;
