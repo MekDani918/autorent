@@ -33,6 +33,21 @@ router.post('/', checkAuth, authorizeAdmin, async(req, res, next) => {
         }
         
         res.status(201).json(category);
+
+        try{
+            if(this.wsServer && this.wsServer.clients){
+                for(wsocket of this.wsServer.clients){
+                    wsocket.send(JSON.stringify({
+                        action:'newcategory',
+                        message: `New category with the id ${category.id} was created!`,
+                        data: category
+                    }));
+                }
+            }
+        }
+        catch(er){
+            console.error(er);
+        }
     }
     catch(e){
         next(e);
@@ -53,10 +68,28 @@ router.delete('/:categoryId', checkAuth, authorizeAdmin, async(req, res, next) =
         res.status(200).json({
             message: 'Deleted successfully!'
         });
+
+        try{
+            if(this.wsServer && this.wsServer.clients){
+                for(wsocket of this.wsServer.clients){
+                    wsocket.send(JSON.stringify({
+                        action:'categorydeleted',
+                        message: `Category with the id ${categoryId} was deleted!`,
+                        data: categoryId
+                    }));
+                }
+            }
+        }
+        catch(er){
+            console.error(er);
+        }
     }
     catch(e){
         next(e);
     }
 });
 
-module.exports = router;
+module.exports = (wsServerIn)=>{
+    this.wsServer = wsServerIn;
+    return router;
+};

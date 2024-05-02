@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const wsServer = require('./app_ws');
 
 const loginRouteHandler = require('./inc/routes/loginRouteHandler');
-const categoriesRouteHandler = require('./inc/routes/categoriesRouteHandler');
-const carsRouteHandler = require('./inc/routes/carsRouteHandler');
+const categoriesRouteHandler = require('./inc/routes/categoriesRouteHandler')(wsServer);
+const carsRouteHandler = require('./inc/routes/carsRouteHandler')(wsServer);
 const rentalsRouteHandler = require('./inc/routes/rentalsRouteHandler');
 const salesRouteHandler = require('./inc/routes/salesRouteHandler')(wsServer);
 
