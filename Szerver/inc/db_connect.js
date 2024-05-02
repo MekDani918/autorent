@@ -337,11 +337,7 @@ async function inserRental(userId, carId, fromTimestamp, toTimestamp){
         if(sale)
             percent = sale.percent;
 
-        console.log();
-        console.log(fromTimestamp);
         const fromDate = new Date(fromTimestamp * 1000);
-        console.log(fromDate);
-        console.log();
         const toDate = new Date(toTimestamp * 1000);
 
         if(!(await isCarValidForPeriod(car, fromDate, toDate))){

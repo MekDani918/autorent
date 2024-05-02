@@ -2,11 +2,13 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
+const wsServer = require('./app_ws');
+
 const loginRouteHandler = require('./inc/routes/loginRouteHandler');
 const categoriesRouteHandler = require('./inc/routes/categoriesRouteHandler');
 const carsRouteHandler = require('./inc/routes/carsRouteHandler');
 const rentalsRouteHandler = require('./inc/routes/rentalsRouteHandler');
-const salesRouteHandler = require('./inc/routes/salesRouteHandler');
+const salesRouteHandler = require('./inc/routes/salesRouteHandler')(wsServer);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -42,4 +44,5 @@ app.use((error, req, res, next) => {
 });
 
 
-module.exports = app;
+module.exports.app = app;
+module.exports.wsServer = wsServer;
