@@ -18,6 +18,7 @@ namespace autorent.ViewModels
     {
         private readonly SelectedCarStore _selectedCarStore;
         private readonly AccountStore _accountStore;
+        private readonly WebsocketDataUpdateService _websocketDataUpdateService;
 
         public Car SelectedCar;
         public Car EditedCar;
@@ -34,7 +35,7 @@ namespace autorent.ViewModels
         public string Category => SelectedCar?.Category ?? "";
         public int DailyPrice => SelectedCar?.DailyPrice ?? 0;
 
-        private readonly ObservableCollection<Category> _categoryList;
+        private ObservableCollection<Category> _categoryList;
         public IEnumerable<Category> CategoryList => _categoryList;
 
         private Category _selectedCategory;
@@ -98,12 +99,15 @@ namespace autorent.ViewModels
             }
         }
 
-        public AdminCarsDetailsViewModel(SelectedCarStore selectedCarStore, AccountStore accountStore)
+        public AdminCarsDetailsViewModel(SelectedCarStore selectedCarStore, AccountStore accountStore, WebsocketDataUpdateService websocketDataUpdateService)
         {
             _categoryList = new ObservableCollection<Category>();
 
             _selectedCarStore = selectedCarStore;
             _accountStore = accountStore;
+            _websocketDataUpdateService = websocketDataUpdateService;
+            _websocketDataUpdateService.OnCategoryCreated += _websocketDataUpdateService_OnCategoryCreated;
+            _websocketDataUpdateService.OnCategoryDeleted += _websocketDataUpdateService_OnCategoryDeleted;
 
             updateCategories();
             updateSelectedCar();
@@ -182,12 +186,36 @@ namespace autorent.ViewModels
                 MessageBox.Show(ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void _websocketDataUpdateService_OnCategoryCreated(Category category)
+        {
+            try
+            {
+                _categoryList = new ObservableCollection<Category>(CategoryList.Append(category));
+                OnPropertyChanged(nameof(CategoryList));
+            }
+            catch { }
+        }
+        private void _websocketDataUpdateService_OnCategoryDeleted(int idOfDeletedItem)
+        {
+            try
+            {
+                Category deleteThis = CategoryList.Where(x => x.Id == idOfDeletedItem)?.First();
+                if (deleteThis != null)
+                {
+                    _categoryList = new ObservableCollection<Category>(CategoryList.Except(new ObservableCollection<Category>() { deleteThis }));
+                }
+                OnPropertyChanged(nameof(CategoryList));
+            }
+            catch { }
+        }
 
 
         public override void Dispose()
         {
             _selectedCarStore.SelectedCarChanged -= OnSelectedCarChanged;
             _selectedCarStore.SelectedCar = null;
+            _websocketDataUpdateService.OnCategoryCreated -= _websocketDataUpdateService_OnCategoryCreated;
+            _websocketDataUpdateService.OnCategoryDeleted -= _websocketDataUpdateService_OnCategoryDeleted;
 
             base.Dispose();
         }

@@ -1,4 +1,5 @@
-﻿using autorent.Stores;
+﻿using autorent.Services;
+using autorent.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace autorent.ViewModels
         public CarsListingViewModel CarsListingViewModel { get; }
         public AdminCarsDetailsViewModel AdminCarsDetailsViewModel { get; }
 
-        public AdminCarsViewModel(AccountStore accountStore, SelectedCarStore selectedCarStore)
+        public AdminCarsViewModel(AccountStore accountStore, SelectedCarStore selectedCarStore, WebsocketDataUpdateService websocketDataUpdateService)
         {
-            CarsListingViewModel = new CarsListingViewModel(accountStore, selectedCarStore);
-            AdminCarsDetailsViewModel = new AdminCarsDetailsViewModel(selectedCarStore, accountStore);
+            CarsListingViewModel = new CarsListingViewModel(accountStore, selectedCarStore, websocketDataUpdateService);
+            AdminCarsDetailsViewModel = new AdminCarsDetailsViewModel(selectedCarStore, accountStore, websocketDataUpdateService);
         }
         public override void Dispose()
         {

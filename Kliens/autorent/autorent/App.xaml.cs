@@ -15,12 +15,16 @@ namespace autorent
         private readonly AccountStore _accountStore;
         private readonly NavigationStore _navigationStore;
         private readonly SelectedCarStore _selectedCarStore;
+        
+        private readonly WebsocketDataUpdateService _websocketDataUpdateService;
 
         public App()
         {
             _accountStore = new AccountStore();
             _navigationStore = new NavigationStore();
             _selectedCarStore = new SelectedCarStore();
+
+            _websocketDataUpdateService = new WebsocketDataUpdateService();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -55,28 +59,28 @@ namespace autorent
         {
             return new LayoutNavigationService<CarsViewModel>(
                 _navigationStore,
-                () => new CarsViewModel(_accountStore, _selectedCarStore),
+                () => new CarsViewModel(_accountStore, _selectedCarStore, _websocketDataUpdateService),
                 CreateNavigationBarViewModel);
         }
         private INavigationService<AdminCategoriesViewModel> CreateAdminCategoriesNavigationService()
         {
             return new LayoutNavigationService<AdminCategoriesViewModel>(
                 _navigationStore,
-                () => new AdminCategoriesViewModel(_accountStore),
+                () => new AdminCategoriesViewModel(_accountStore, _websocketDataUpdateService),
                 CreateNavigationBarViewModel);
         }
         private INavigationService<AdminCarsViewModel> CreateAdminCarsNavigationService()
         {
             return new LayoutNavigationService<AdminCarsViewModel>(
                 _navigationStore,
-                () => new AdminCarsViewModel(_accountStore, _selectedCarStore),
+                () => new AdminCarsViewModel(_accountStore, _selectedCarStore, _websocketDataUpdateService),
                 CreateNavigationBarViewModel);
         }
         private INavigationService<AdminSalesViewModel> CreateAdminSalesNavigationService()
         {
             return new LayoutNavigationService<AdminSalesViewModel>(
                 _navigationStore,
-                () => new AdminSalesViewModel(_accountStore),
+                () => new AdminSalesViewModel(_accountStore, _websocketDataUpdateService),
                 CreateNavigationBarViewModel);
         }
 
