@@ -16,7 +16,7 @@ module.exports = {
 		{
 		  username: 'admin',
 		  name: 'Mátics Dániel',
-		  password: '123',
+		  password: '$2b$10$TWuGiYWFF6VcDaJUyzEwYOO3YJfX98DgAF8v/StdsyUINVUtAwBNm',
 		  is_admin: true,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
@@ -24,7 +24,7 @@ module.exports = {
 		{
 		  username: 'admin2',
 		  name: 'Auerbach Dávid',
-		  password: 'admin2',
+		  password: '$2b$10$XyC.aTnIECdHjt1r9HPJ9OHH.C2oMPtXzMjeUxzFZzQJFWs5aRzQ.',
 		  is_admin: true,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
@@ -32,7 +32,7 @@ module.exports = {
 		{
 		  username: 'admin3',
 		  name: 'Koronczai Hont',
-		  password: 'admin3',
+		  password: '$2b$10$zjncMXA8LakHOMQfJvmBAelsi6lFdaBetWgtMWN4llSrUwCFLgXgK',
 		  is_admin: true,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
@@ -40,7 +40,7 @@ module.exports = {
 		{
 		  username: 'bercza',
 		  name: 'Bercza Ferenc Dániel',
-		  password: 'bercza',
+		  password: '$2b$10$k22462WduOobtU0pd.FApOor8Ze9R1Gs.qhfRdQ054dZfvM7x.oFC',
 		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
@@ -48,7 +48,7 @@ module.exports = {
 		{
 		  username: 'harnos',
 		  name: 'Harnos Adrián Dániel',
-		  password: 'harnos',
+		  password: '$2b$10$lFY0OSKxNhCUD9WNShlCJ.ehmkbXbijkdRcsGhtNHUQsGoY4Q7YGm',
 		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
@@ -56,7 +56,7 @@ module.exports = {
 		{
 		  username: 'dmartin',
 		  name: 'Dömök Martin',
-		  password: 'dmartin',
+		  password: '$2b$10$NoMadvKMWOjOeMhg1V4TD.i.DMaviE6uw30bKTy8ijirTrCYY8o3C',
 		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
@@ -64,7 +64,7 @@ module.exports = {
 		{
 		  username: 'heller',
 		  name: 'Heller Benedek',
-		  password: 'hbeni',
+		  password: '$2b$10$VN17EQHoxpg5ZUy28e89xuyt47Y4slrn5XBYpSs3zUNHgcdtHWoJW',
 		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
@@ -72,7 +72,7 @@ module.exports = {
 		{
 		  username: 'user',
 		  name: 'User123',
-		  password: '123',
+		  password: '$2b$10$CaSORyotNunMqxtn9gZTT..r2Q52TFTsMc1s7TJzwVidZK7aVBMkS',
 		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
@@ -80,7 +80,7 @@ module.exports = {
 		{
 		  username: 'fkrisi',
 		  name: 'Ferencz Kristóf',
-		  password: 'krisi',
+		  password: '$2b$10$SAnI6pA5qTpmXdtHGIsgk.zvHbONFGcoQWlqkeQqQj.ylRqINLQcu',
 		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()
@@ -88,7 +88,7 @@ module.exports = {
 		{
 		  username: 'hadam',
 		  name: 'A. Ádám',
-		  password: 'aharcos',
+		  password: '$2b$10$7xuWOd2ybkAyfwDqcyWClOstGYWTScDdh2yTvPsky057dUQbAt24e',
 		  is_admin: false,
 		  createdAt: new Date(),
 		  updatedAt: new Date()

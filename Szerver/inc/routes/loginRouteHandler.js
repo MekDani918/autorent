@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const { getUserByUsername } = require("../db_connect.js");
 
@@ -11,7 +12,8 @@ router.post('/', async(req, res, next) => {
     
         let user = await getUserByUsername(username);
         //console.log(user);
-        if(!user || username != user.username || password != user.password){
+
+        if(!user || !username || !password || username != user.username || !(await bcrypt.compare(password, user.password))){
             const err = new Error("Invalid username or password");
             err.status = 400;
             throw err;

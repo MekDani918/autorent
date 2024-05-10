@@ -11,6 +11,9 @@
         Title="AutoRent" Height="450" Width="800">
     <ContentControl Content="{Binding CurrentViewModel}" IsTabStop="False">
         <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:RegisterViewModel}">
+                <views:RegisterView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
                 <views:LoginView />
             </DataTemplate>

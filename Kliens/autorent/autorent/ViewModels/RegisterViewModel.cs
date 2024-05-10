@@ -7,7 +7,7 @@ using System.Windows.Navigation;
 
 namespace autorent.ViewModels
 {
-    public class LoginViewModel : ViewModelBase
+    public class RegisterViewModel : ViewModelBase
     {
         public string _username;
         public string Username
@@ -17,6 +17,16 @@ namespace autorent.ViewModels
             {
                 _username = value;
                 OnPropertyChanged(nameof(Username));
+            }
+        }
+        public string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
             }
         }
         public string _password;
@@ -30,12 +40,12 @@ namespace autorent.ViewModels
             }
         }
 
-        public ICommand LoginCommand { get; }
-        public ICommand NavigateRegisterCommand { get; }
-        public LoginViewModel(AccountStore accountStore, INavigationService<CarsViewModel> carsNavigationService, INavigationService<AdminCategoriesViewModel> adminCategoriesNavigationService, INavigationService<RegisterViewModel> registerNavigationService)
+        public ICommand RegisterCommand { get; }
+        public ICommand NavigateLoginCommand { get; }
+        public RegisterViewModel(INavigationService<LoginViewModel> loginNavigationService)
         {
-            LoginCommand = new LoginCommand(this, accountStore, carsNavigationService, adminCategoriesNavigationService);
-            NavigateRegisterCommand = new NavigateCommand<RegisterViewModel>(registerNavigationService);
+            RegisterCommand = new RegisterCommand(this, loginNavigationService);
+            NavigateLoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
         }
     }
 }

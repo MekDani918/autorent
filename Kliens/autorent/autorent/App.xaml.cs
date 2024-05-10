@@ -42,9 +42,13 @@ namespace autorent
             base.OnStartup(e);
         }
 
+        private INavigationService<RegisterViewModel> CreateRegisterNavigationService()
+        {
+            return new NavigationService<RegisterViewModel>(_navigationStore, () => new RegisterViewModel(CreateLoginNavigationService()));
+        }
         private INavigationService<LoginViewModel> CreateLoginNavigationService()
         {
-            return new NavigationService<LoginViewModel>(_navigationStore, () => new LoginViewModel(_accountStore, CreateCarsNavigationService(), CreateAdminCategoriesNavigationService()));
+            return new NavigationService<LoginViewModel>(_navigationStore, () => new LoginViewModel(_accountStore, CreateCarsNavigationService(), CreateAdminCategoriesNavigationService(), CreateRegisterNavigationService()));
         }
 
         private INavigationService<RentalsViewModel> CreateRentalsNavigationService()

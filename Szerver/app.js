@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const wsServer = require('./app_ws');
 
+const registerRouteHandler = require('./inc/routes/registerRouteHandler');
 const loginRouteHandler = require('./inc/routes/loginRouteHandler');
 const categoriesRouteHandler = require('./inc/routes/categoriesRouteHandler')(wsServer);
 const carsRouteHandler = require('./inc/routes/carsRouteHandler')(wsServer);
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 });
 
 
+app.use('/register', registerRouteHandler);
 app.use('/login', loginRouteHandler);
 app.use('/categories', categoriesRouteHandler);
 app.use('/cars', carsRouteHandler);

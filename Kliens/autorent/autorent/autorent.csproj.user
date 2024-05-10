@@ -96,6 +96,9 @@
     <Page Update="Views\CarsView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\RegisterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\LoginView.xaml">
       <SubType>Designer</SubType>
     </Page>
