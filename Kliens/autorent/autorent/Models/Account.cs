@@ -19,9 +19,7 @@ namespace autorent.Models
                     return "";                   
                 }
                 string encodedPayload = Token.Split('.')[1];
-                int padding = 4 - encodedPayload.Length % 4;
-                encodedPayload += new String('=', padding);
-                byte[] PayLoadBytes = Convert.FromBase64String(encodedPayload);
+                byte[] PayLoadBytes = Convert.FromBase64String(base64urlToBase64(encodedPayload));
                 string PayLoadString= Encoding.UTF8.GetString(PayLoadBytes);
                 JwtPayload PayLoad = JsonSerializer.Deserialize<JwtPayload>(PayLoadString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                 return PayLoad.Role;
@@ -32,6 +30,19 @@ namespace autorent.Models
         {
             Username = username;
             Token = token;
+        }
+
+        private string base64urlToBase64(string base64UrlString)
+        {
+            string base64 = base64UrlString;
+            base64.Replace('-', '+');
+            base64.Replace('_', '/');
+            if(base64.Length % 4 != 0 )
+            {
+                base64 += new String('=', 4 - base64.Length % 4);
+            }
+
+            return base64;
         }
     }
 }
