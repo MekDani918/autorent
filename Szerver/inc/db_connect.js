@@ -1,5 +1,6 @@
 const { sequelize, Car, Category, Rental, Sale, User } = require('../models');
 const { Op } = require("sequelize");
+const bcrypt = require("bcrypt");
 
 let users = [
     {
@@ -127,6 +128,25 @@ async function initDb(){
     //}
 }
 
+async function registerUser(username, name, password){
+    try{
+        let salt = await bcrypt.genSalt();
+        let password_hash = await bcrypt.hash(password, salt);
+
+        let user = await User.create({
+            username:username,
+            name:name,
+            password:password_hash
+        });
+
+        return user;
+    }
+    catch(e){
+        const err = new Error("Internal Database Error!");
+        err.status = 500;
+        throw err;
+    }
+}
 async function getUserByUsername(username){
     try{
         return await User.findOne({
@@ -337,11 +357,7 @@ async function inserRental(userId, carId, fromTimestamp, toTimestamp){
         if(sale)
             percent = sale.percent;
 
-        console.log();
-        console.log(fromTimestamp);
         const fromDate = new Date(fromTimestamp * 1000);
-        console.log(fromDate);
-        console.log();
         const toDate = new Date(toTimestamp * 1000);
 
         if(!(await isCarValidForPeriod(car, fromDate, toDate))){
@@ -503,6 +519,7 @@ async function getCustomSaleObject(sale_in){
 
 initDb();
 
+module.exports.registerUser = registerUser;
 module.exports.getUserByUsername = getUserByUsername;
 module.exports.createCategory = createCategory;
 module.exports.getCategoryById = getCategoryById;

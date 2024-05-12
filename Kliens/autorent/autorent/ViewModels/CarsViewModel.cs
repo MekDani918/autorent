@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using autorent.Services;
 using autorent.Stores;
 
 namespace autorent.ViewModels
@@ -12,9 +13,9 @@ namespace autorent.ViewModels
         public CarsListingViewModel CarsListingViewModel { get; }
         public CarsDetailsViewModel CarsDetailsViewModel { get; }
 
-        public CarsViewModel(AccountStore accountStore, SelectedCarStore selectedCarStore)
+        public CarsViewModel(AccountStore accountStore, SelectedCarStore selectedCarStore, WebsocketDataUpdateService websocketDataUpdateService)
         {
-            CarsListingViewModel = new CarsListingViewModel(accountStore, selectedCarStore);
+            CarsListingViewModel = new CarsListingViewModel(accountStore, selectedCarStore, websocketDataUpdateService);
             CarsDetailsViewModel = new CarsDetailsViewModel(selectedCarStore, accountStore);
         }
         public override void Dispose()

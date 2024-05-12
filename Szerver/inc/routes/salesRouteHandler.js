@@ -35,15 +35,35 @@ router.post('/', checkAuth, authorizeAdmin, async(req, res, next) => {
         }
         
         res.status(201).json(sale);
+
+        try{
+            if(this.wsServer && this.wsServer.clients){
+                for(wsocket of this.wsServer.clients){
+                    wsocket.send(JSON.stringify({
+                        action:'newsale',
+                        message: `Car with the id of ${carId} is now on sale!`,
+                        // data: {
+                        //     car_id: carId,
+                        //     percent: percent,
+                        //     description: description
+                        // }
+                        data: sale
+                    }));
+                }
+            }
+        }
+        catch(er){
+            console.error(er);
+        }
     }
     catch(e){
         next(e);
     }
 });
-router.delete('/:saleId', checkAuth, authorizeAdmin, async(req, res, next) => {
+router.delete('/:carId', checkAuth, authorizeAdmin, async(req, res, next) => {
     try{
-        const saleId = req.params.saleId;
-        let sale = await getSaleByCarId(saleId);
+        const carId = req.params.carId;
+        let sale = await getSaleByCarId(carId);
         
         if(!sale){
             next();
@@ -55,10 +75,28 @@ router.delete('/:saleId', checkAuth, authorizeAdmin, async(req, res, next) => {
         res.status(200).json({
             message: 'Deleted successfully!'
         });
+
+        try{
+            if(this.wsServer && this.wsServer.clients){
+                for(wsocket of this.wsServer.clients){
+                    wsocket.send(JSON.stringify({
+                        action:'saleended',
+                        message: `Sale for the car with id of ${carId} is now ended!`,
+                        data: carId
+                    }));
+                }
+            }
+        }
+        catch(er){
+            console.error(er);
+        }
     }
     catch(e){
         next(e);
     }
 });
 
-module.exports = router;
+module.exports = (wsServerIn)=>{
+    this.wsServer = wsServerIn;
+    return router;
+};

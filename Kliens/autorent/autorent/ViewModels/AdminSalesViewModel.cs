@@ -15,6 +15,7 @@ namespace autorent.ViewModels
     public class AdminSalesViewModel : ViewModelBase
     {
         private readonly AccountStore _accountStore;
+        private readonly WebsocketDataUpdateService _websocketDataUpdateService;
         public ICommand DeleteCommand { get; }
         public ICommand CreateCommand { get; }
         private List<Sale> _sales;
@@ -80,15 +81,22 @@ namespace autorent.ViewModels
                 OnPropertyChanged(nameof(TableData));
             }
         }
-        public AdminSalesViewModel(AccountStore accountStore)
+        public AdminSalesViewModel(AccountStore accountStore, WebsocketDataUpdateService websocketDataUpdateService)
         {
             _accountStore = accountStore;
+            _websocketDataUpdateService = websocketDataUpdateService;
+            _websocketDataUpdateService.OnSaleCreated += _websocketDataUpdateService_OnSaleCreated;
+            _websocketDataUpdateService.OnSaleDeleted += _websocketDataUpdateService_OnSaleDeleted;
+            _websocketDataUpdateService.OnCarCreated += _websocketDataUpdateService_OnCarCreated;
+            _websocketDataUpdateService.OnCarEdited += _websocketDataUpdateService_OnCarEdited;
+            _websocketDataUpdateService.OnCarDeleted += _websocketDataUpdateService_OnCarDeleted;
+
             UpdateData();
             DeleteCommand = new AdminSalesDeleteCommand(this, _accountStore);
-            CreateCommand = new AdminSalesCreateCommand(this, _accountStore);           
+            CreateCommand = new AdminSalesCreateCommand(this, _accountStore);
             GetCars();
-            
         }
+
         public void UpdateData()
         {
             try
@@ -115,6 +123,82 @@ namespace autorent.ViewModels
             {
                 MessageBox.Show(ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void _websocketDataUpdateService_OnSaleCreated(Sale sale)
+        {
+            try
+            {
+                TableData = new List<Sale>(TableData.Append(sale));
+                OnPropertyChanged(nameof(TableData));
+            }
+            catch { }
+        }
+        private void _websocketDataUpdateService_OnSaleDeleted(int idOfDeletedItem)
+        {
+            try
+            {
+                Sale deleteThis = TableData.Where(x => x.Car.Id == idOfDeletedItem)?.First();
+                if (deleteThis != null)
+                {
+                    TableData = new List<Sale>(TableData.Except(new List<Sale>() { deleteThis }));
+                }
+                OnPropertyChanged(nameof(TableData));
+            }
+            catch { }
+        }
+
+        private void _websocketDataUpdateService_OnCarCreated(Car car)
+        {
+            try
+            {
+                CarsList = new List<Car>(CarsList.Append(car));
+                OnPropertyChanged(nameof(CarsList));
+            }
+            catch { }
+        }
+        private void _websocketDataUpdateService_OnCarEdited(Car car)
+        {
+            try
+            {
+                Car carToEdit = CarsList.Where(x => x.Id == car.Id)?.First();
+                if (carToEdit != null)
+                {
+                    carToEdit.Category = car.Category;
+                    carToEdit.Brand = car.Brand;
+                    carToEdit.Model = car.Model;
+                    carToEdit.DailyPrice = car.DailyPrice;
+                    carToEdit.UnavailableDates = car.UnavailableDates;
+                    carToEdit.DiscountPercentage = car.DiscountPercentage;
+                }
+                OnPropertyChanged(nameof(CarsList));
+            }
+            catch { }
+        }
+        private void _websocketDataUpdateService_OnCarDeleted(int idOfDeletedItem)
+        {
+            try
+            {
+                Car deleteThis = CarsList.Where(x => x.Id == idOfDeletedItem)?.First();
+                if (deleteThis != null)
+                {
+                    CarsList = new List<Car>(CarsList.Except(new List<Car>() { deleteThis }));
+                }
+                OnPropertyChanged(nameof(CarsList));
+            }
+            catch { }
+        }
+
+        public override void Dispose()
+        {
+            _websocketDataUpdateService.OnSaleCreated -= _websocketDataUpdateService_OnSaleCreated;
+            _websocketDataUpdateService.OnSaleDeleted -= _websocketDataUpdateService_OnSaleDeleted;
+            _websocketDataUpdateService.OnCarCreated -= _websocketDataUpdateService_OnCarCreated;
+            _websocketDataUpdateService.OnCarEdited -= _websocketDataUpdateService_OnCarEdited;
+            _websocketDataUpdateService.OnCarDeleted -= _websocketDataUpdateService_OnCarDeleted;
+
+
+            base.Dispose();
         }
     }
 }

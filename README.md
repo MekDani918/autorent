@@ -33,8 +33,10 @@ Kliens mappában `autorent.exe`
 #### Szerver:
 
 Megadható egy `.env` fájlban hogy az API milyen porton legyen elérhető
+, továbbá beállítható a JWT tokenekhez használt kulcs is
 ```env
 PORT=3000
+JWT_KEY=secret
 ```
 Ebben az esetben a futtatás:
 ```sh

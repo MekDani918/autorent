@@ -20,7 +20,7 @@ router.post('/', checkAuth, async(req, res, next) => {
         const carId = req.body.carId;
         const from = req.body.from;
         const to = req.body.to;
-        console.log(req.body);
+        
         let rentId = await inserRental(userId, carId, from, to);
         if(rentId == null){
             const error = new Error("Car is not available for selected period");

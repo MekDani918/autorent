@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,8 @@ namespace autorent.ViewModels
 {
     public class AdminCategoriesViewModel : ViewModelBase
     {
-        private readonly AccountStore _accountStore;      
+        private readonly AccountStore _accountStore;
+        private readonly WebsocketDataUpdateService _websocketDataUpdateService;
         public ICommand DeleteCommand { get;}
         public ICommand CreateCommand { get;}      
         private List<Category> _categories;
@@ -57,13 +59,18 @@ namespace autorent.ViewModels
                 OnPropertyChanged(nameof(IsTextBoxVisible));               
             }
         }
-        public AdminCategoriesViewModel(AccountStore accountStore)
+        public AdminCategoriesViewModel(AccountStore accountStore, WebsocketDataUpdateService websocketDataUpdateService)
         {
             _accountStore = accountStore;
+            _websocketDataUpdateService = websocketDataUpdateService;
+            _websocketDataUpdateService.OnCategoryCreated += _websocketDataUpdateService_OnCategoryCreated;
+            _websocketDataUpdateService.OnCategoryDeleted += _websocketDataUpdateService_OnCategoryDeleted;
+
             UpdateData();
             DeleteCommand=new AdminCategoriesDeleteCommand(this,_accountStore);
             CreateCommand=new AdminCategoriesCreateCommand(this,_accountStore);
         }
+
         public void UpdateData()
         {
             try
@@ -76,6 +83,37 @@ namespace autorent.ViewModels
             {
                 MessageBox.Show(ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void _websocketDataUpdateService_OnCategoryCreated(Category category)
+        {
+            try
+            {
+                TableData = new List<Category>(TableData.Append(category));
+                OnPropertyChanged(nameof(TableData));
+            }
+            catch { }
+        }
+        private void _websocketDataUpdateService_OnCategoryDeleted(int idOfDeletedItem)
+        {
+            try
+            {
+                Category deleteThis = TableData.Where(x => x.Id == idOfDeletedItem)?.First();
+                if (deleteThis != null)
+                {
+                    TableData = new List<Category>(TableData.Except(new List<Category>() { deleteThis }));
+                }
+                OnPropertyChanged(nameof(TableData));
+            }
+            catch { }
+        }
+
+        public override void Dispose()
+        {
+            _websocketDataUpdateService.OnCategoryCreated -= _websocketDataUpdateService_OnCategoryCreated;
+            _websocketDataUpdateService.OnCategoryDeleted -= _websocketDataUpdateService_OnCategoryDeleted;
+
+            base.Dispose();
         }
     }
 }
